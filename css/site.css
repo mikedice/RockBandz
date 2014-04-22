@@ -1,0 +1,18 @@
+﻿body {
+  background-color: lightgray;
+}
+.img_thumbnail {
+  width: 100px;
+  height: 100px;
+}
+#title-bar {
+  height: 100px;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+#gallery-holder {
+  width: 80%;
+  margin: auto;
+}
+/*# sourceMappingURL=site.css.map */
