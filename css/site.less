@@ -1,5 +1,8 @@
 ﻿body {
     background-color:lightgray;
+    font-family: "alexa-std",sans-serif;
+    background-image:url(/img/smoke1.jpg);
+    background-size:cover;
 }
 
 .img_thumbnail {
@@ -7,15 +10,64 @@
     height: 100px;
 }
 
-#title-bar{
-    height: 100px;
-    width:80%;
-    margin:auto;
-    text-align: center;
+@media all and (min-width: 900px) {
+    #title-bar {
+        height: 200px;
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        color: purple;
 
+        h1 {
+            font-size: 58pt;
+            margin-top: 25px;
+            margin-bottom:10px;
+        }
+
+        h3 {
+            font-size: 48px;
+            margin-top: 10px;
+            margin-bottom:10px;
+        }
+    }
+}
+@media all and (max-width: 899px) {
+    #title-bar {
+        height: 200px;
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        color: purple;
+
+        h1 {
+            display: none;
+        }
+
+        h3 {
+            display:none;
+        }
+    }
 }
 
 #gallery-holder{
     width:80%;
     margin:auto;
+}
+
+#footer {
+    height: 150px;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    color: purple;
+    font-size: 24px;
+    background-image:url(/img/transparentBackground.png);
+    padding-top:1px;
+    margin-top:50px;
+    img {
+        width: 50px;
+        height: 50px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }
