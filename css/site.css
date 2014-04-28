@@ -8,40 +8,6 @@
   width: 100px;
   height: 100px;
 }
-@media all and (min-width: 900px) {
-  #title-bar {
-    height: 200px;
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    color: purple;
-  }
-  #title-bar h1 {
-    font-size: 58pt;
-    margin-top: 25px;
-    margin-bottom: 10px;
-  }
-  #title-bar h3 {
-    font-size: 48px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
-@media all and (max-width: 899px) {
-  #title-bar {
-    height: 200px;
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    color: purple;
-  }
-  #title-bar h1 {
-    display: none;
-  }
-  #title-bar h3 {
-    display: none;
-  }
-}
 #gallery-holder {
   width: 80%;
   margin: auto;
