@@ -110,6 +110,9 @@
     <Content Include="css\blueimp-gallery-video.css" />
     <Content Include="css\blueimp-gallery.css" />
     <Content Include="css\blueimp-gallery.min.css" />
+    <Content Include="css\BootstrapManageThemes\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
     <Content Include="css\BootstrapManageThemes\manage.css">
       <DependentUpon>manage.less</DependentUpon>
     </Content>
@@ -365,6 +368,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <None Include="in-the-frontrow - FTP.pubxml" />
     <None Include="in-the-frontrow - Web Deploy.pubxml" />
   </ItemGroup>
