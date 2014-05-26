@@ -1,6 +1,5 @@
-Site/bin/
-Site/App_Data/
-Site/obj/
-packages/
+bin/
+App_Data/
+obj/
 *.suo
 *.user
