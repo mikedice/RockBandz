@@ -7,6 +7,7 @@ app.controller('Management', function ($scope) {
         Dropzone.instances[0].options.url = $scope.uploadUrlRoot + value;
     });
 
-    Dropzone.options.url = "";
+    var myDropzone = document.querySelectorAll(".my-dropzone")
+
     Dropzone.instances[0].options.url = $scope.uploadUrlRoot + value;
 });
