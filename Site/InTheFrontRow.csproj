@@ -1,433 +1,440 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProductVersion>
-        </ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{14707098-3F28-4490-B525-61C15C256F51}</ProjectGuid>
-        <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>WebApplication1</RootNamespace>
-        <AssemblyName>WebApplication1</AssemblyName>
-        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-        <MvcBuildViews>false</MvcBuildViews>
-        <UseIISExpress>true</UseIISExpress>
-        <IISExpressSSLPort />
-        <IISExpressAnonymousAuthentication />
-        <IISExpressWindowsAuthentication />
-        <IISExpressUseClassicPipelineMode />
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Data.Entity" />
-        <Reference Include="System.Drawing" />
-        <Reference Include="System.Web.Entity" />
-        <Reference Include="System.Web.ApplicationServices" />
-        <Reference Include="System.ComponentModel.DataAnnotations" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data.DataSetExtensions" />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Web" />
-        <Reference Include="System.Web.Abstractions" />
-        <Reference Include="System.Web.Routing" />
-        <Reference Include="System.Xml" />
-        <Reference Include="System.Configuration" />
-        <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Net.Http">
-        </Reference>
-        <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Net.Http.WebRequest">
-        </Reference>
-        <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.Optimization">
-            <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-            <Private>True</Private>
-            <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-        </Reference>
-        <Reference Include="WebGrease">
-            <Private>True</Private>
-            <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-        </Reference>
-        <Reference Include="Antlr3.Runtime">
-            <Private>True</Private>
-            <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Models\" />
-        <Folder Include="Views\Images\" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="App_Start\FilterConfig.cs" />
-        <Compile Include="App_Start\WebApiConfig.cs" />
-        <Compile Include="Controllers\ImagesController.cs" />
-        <Compile Include="Controllers\ValuesController.cs" />
-        <Compile Include="Global.asax.cs">
-            <DependentUpon>Global.asax</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\blueimp-gallery-indicator.css" />
-        <Content Include="css\blueimp-gallery-video.css" />
-        <Content Include="css\blueimp-gallery.css" />
-        <Content Include="css\blueimp-gallery.min.css" />
-        <Content Include="css\BootstrapManageThemes\bootstrap.css">
-            <DependentUpon>bootstrap.less</DependentUpon>
-        </Content>
-        <Content Include="css\BootstrapManageThemes\manage.css">
-            <DependentUpon>manage.less</DependentUpon>
-        </Content>
-        <Content Include="css\BootstrapThemes\bootstrap.css" />
-        <Content Include="css\BootstrapThemes\variables.css" />
-        <Content Include="css\demo.css" />
-        <Content Include="css\site.css">
-            <DependentUpon>site.less</DependentUpon>
-        </Content>
-        <Content Include="fonts\glyphicons-halflings-regular.svg" />
-        <Content Include="Global.asax" />
-        <Content Include="img\error.png" />
-        <Content Include="img\error.svg" />
-        <Content Include="img\facebook.png" />
-        <Content Include="img\loading.gif" />
-        <Content Include="img\play-pause.png" />
-        <Content Include="img\play-pause.svg" />
-        <Content Include="img\smoke1.jpg" />
-        <Content Include="img\smoke2.jpg" />
-        <Content Include="img\transparentBackground.png" />
-        <Content Include="img\twitter.png" />
-        <Content Include="img\video-play.png" />
-        <Content Include="img\video-play.svg" />
-        <Content Include="Index.html" />
-        <Content Include="Index.old.html" />
-        <Content Include="js\angular.js" />
-        <Content Include="js\blueimp-gallery-fullscreen.js" />
-        <Content Include="js\blueimp-gallery-indicator.js" />
-        <Content Include="js\blueimp-gallery-video.js" />
-        <Content Include="js\blueimp-gallery-vimeo.js" />
-        <Content Include="js\blueimp-gallery-youtube.js" />
-        <Content Include="js\blueimp-gallery.js" />
-        <Content Include="js\blueimp-gallery.min.js" />
-        <Content Include="js\blueimp-helper.js" />
-        <Content Include="js\bootstrap.js" />
-        <Content Include="js\bootstrap.min.js" />
-        <Content Include="js\demo.js" />
-        <Content Include="js\dropzone.js" />
-        <Content Include="js\jquery.blueimp-gallery.js" />
-        <Content Include="js\jquery.blueimp-gallery.min.js" />
-        <Content Include="js\managerApp.js" />
-        <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
-        <Content Include="Manage.html" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7682.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7684.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7693.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7700.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7705.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7716.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7717.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7720.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7722.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7723.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7724.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7728.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7730.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7732.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7733.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7737.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7746.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7747.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7749.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7750.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7752.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7753.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7761.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7762.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7763.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7764.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7769.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7775.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7796.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7801.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7814.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7815.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7816.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7820.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7834.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7836.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7838.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7846.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7852.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7854.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7859.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7863.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7864.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7872.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7885.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7886.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7888.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7889.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7891.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7899.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7905.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7912.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7925.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7932.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7938.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7939.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7942.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7945.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7946.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7974.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7977.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\out.txt" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7671.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7682.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7684.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7693.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7700.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7705.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7716.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7717.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7720.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7722.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7723.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7724.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7728.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7730.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7732.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7733.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7737.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7746.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7747.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7749.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7750.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7752.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7753.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7761.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7762.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7763.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7764.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7769.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7775.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7796.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7801.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7814.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7815.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7816.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7820.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7834.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7836.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7838.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7846.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7852.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7854.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7859.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7863.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7864.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7872.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7885.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7886.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7888.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7889.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7891.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7899.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7905.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7912.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7925.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7932.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7938.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7939.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7942.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7945.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7946.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7974.jpg" />
-        <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7977.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\1011611_296256487181362_137859248_n.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\1151028_296256527181358_549087956_n.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\1208830_296256520514692_767366623_n.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1011611_296256487181362_137859248_n.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1151028_296256527181358_549087956_n.jpg" />
-        <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
-        <Content Include="Web.config" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\site.css.map">
-            <DependentUpon>site.css</DependentUpon>
-        </Content>
-        <Content Include="css\site.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="fonts\glyphicons-halflings-regular.eot" />
-        <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-        <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\Bootstrap\.csscomb.json" />
-        <Content Include="css\Bootstrap\.csslintrc" />
-        <Content Include="css\Bootstrap\alerts.less" />
-        <Content Include="css\Bootstrap\badges.less" />
-        <Content Include="css\Bootstrap\bootstrap.less" />
-        <Content Include="css\Bootstrap\breadcrumbs.less" />
-        <Content Include="css\Bootstrap\button-groups.less" />
-        <Content Include="css\Bootstrap\buttons.less" />
-        <Content Include="css\Bootstrap\carousel.less" />
-        <Content Include="css\Bootstrap\close.less" />
-        <Content Include="css\Bootstrap\code.less" />
-        <Content Include="css\Bootstrap\component-animations.less" />
-        <Content Include="css\Bootstrap\dropdowns.less" />
-        <Content Include="css\Bootstrap\forms.less" />
-        <Content Include="css\Bootstrap\glyphicons.less" />
-        <Content Include="css\Bootstrap\grid.less" />
-        <Content Include="css\Bootstrap\input-groups.less" />
-        <Content Include="css\Bootstrap\jumbotron.less" />
-        <Content Include="css\Bootstrap\labels.less" />
-        <Content Include="css\Bootstrap\list-group.less" />
-        <Content Include="css\Bootstrap\media.less" />
-        <Content Include="css\Bootstrap\mixins.less" />
-        <Content Include="css\Bootstrap\modals.less" />
-        <Content Include="css\Bootstrap\navbar.less" />
-        <Content Include="css\Bootstrap\navs.less" />
-        <Content Include="css\Bootstrap\normalize.less" />
-        <Content Include="css\Bootstrap\pager.less" />
-        <Content Include="css\Bootstrap\pagination.less" />
-        <Content Include="css\Bootstrap\panels.less" />
-        <Content Include="css\Bootstrap\popovers.less" />
-        <Content Include="css\Bootstrap\print.less" />
-        <Content Include="css\Bootstrap\progress-bars.less" />
-        <Content Include="css\Bootstrap\responsive-utilities.less" />
-        <Content Include="css\Bootstrap\scaffolding.less" />
-        <Content Include="css\Bootstrap\tables.less" />
-        <Content Include="css\Bootstrap\theme.less" />
-        <Content Include="css\Bootstrap\thumbnails.less" />
-        <Content Include="css\Bootstrap\tooltip.less" />
-        <Content Include="css\Bootstrap\type.less" />
-        <Content Include="css\Bootstrap\utilities.less" />
-        <Content Include="css\Bootstrap\variables.less" />
-        <Content Include="css\Bootstrap\wells.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapThemes\bootstrap.css.map" />
-        <Content Include="css\BootstrapThemes\bootstrap.less" />
-        <Content Include="css\BootstrapThemes\dropdowns.less" />
-        <Content Include="css\BootstrapThemes\navbar.less" />
-        <Content Include="css\BootstrapThemes\variables.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapManageThemes\bootstrap.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapManageThemes\variables.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapManageThemes\manage.less" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapManageThemes\manage.css.map">
-            <DependentUpon>manage.css</DependentUpon>
-        </Content>
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="css\BootstrapManageThemes\bootstrap.css.map">
-            <DependentUpon>bootstrap.css</DependentUpon>
-        </Content>
-        <None Include="in-the-frontrow - FTP.pubxml" />
-        <None Include="in-the-frontrow - Web Deploy.pubxml" />
-    </ItemGroup>
-    <PropertyGroup>
-        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-        <OutputPath>bin\</OutputPath>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-    <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-    <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-        <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
-    </Target>
-    <ProjectExtensions>
-        <VisualStudio>
-            <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-                <WebProjectProperties>
-                    <UseIIS>True</UseIIS>
-                    <AutoAssignPort>True</AutoAssignPort>
-                    <DevelopmentServerPort>55046</DevelopmentServerPort>
-                    <DevelopmentServerVPath>/</DevelopmentServerVPath>
-                    <IISUrl>http://localhost:55046/</IISUrl>
-                    <NTLMAuthentication>False</NTLMAuthentication>
-                    <UseCustomServer>False</UseCustomServer>
-                    <CustomServerUrl>
-                    </CustomServerUrl>
-                    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-                </WebProjectProperties>
-            </FlavorProperties>
-        </VisualStudio>
-    </ProjectExtensions>
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14707098-3F28-4490-B525-61C15C256F51}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebApplication1</RootNamespace>
+    <AssemblyName>WebApplication1</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Views\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\blueimp-gallery-indicator.css" />
+    <Content Include="css\blueimp-gallery-video.css" />
+    <Content Include="css\blueimp-gallery.css" />
+    <Content Include="css\blueimp-gallery.min.css" />
+    <Content Include="css\BootstrapManageThemes\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="css\BootstrapManageThemes\manage.css">
+      <DependentUpon>manage.less</DependentUpon>
+    </Content>
+    <Content Include="css\BootstrapThemes\bootstrap.css" />
+    <Content Include="css\BootstrapThemes\variables.css" />
+    <Content Include="css\demo.css" />
+    <Content Include="css\site.css">
+      <DependentUpon>site.less</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="img\error.png" />
+    <Content Include="img\error.svg" />
+    <Content Include="img\facebook.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\play-pause.png" />
+    <Content Include="img\play-pause.svg" />
+    <Content Include="img\smoke1.jpg" />
+    <Content Include="img\smoke2.jpg" />
+    <Content Include="img\transparentBackground.png" />
+    <Content Include="img\twitter.png" />
+    <Content Include="img\video-play.png" />
+    <Content Include="img\video-play.svg" />
+    <Content Include="Index.html" />
+    <Content Include="Index.old.html" />
+    <Content Include="js\angular.js" />
+    <Content Include="js\blueimp-gallery-fullscreen.js" />
+    <Content Include="js\blueimp-gallery-indicator.js" />
+    <Content Include="js\blueimp-gallery-video.js" />
+    <Content Include="js\blueimp-gallery-vimeo.js" />
+    <Content Include="js\blueimp-gallery-youtube.js" />
+    <Content Include="js\blueimp-gallery.js" />
+    <Content Include="js\blueimp-gallery.min.js" />
+    <Content Include="js\blueimp-helper.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\demo.js" />
+
+    <Content Include="js\jquery.blueimp-gallery.js" />
+    <Content Include="js\jquery.blueimp-gallery.min.js" />
+    <Content Include="js\managerApp.js" />
+    <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
+    <Content Include="Manage.html" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7682.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7684.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7693.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7700.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7705.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7716.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7717.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7720.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7722.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7723.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7724.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7728.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7730.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7732.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7733.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7737.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7746.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7747.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7749.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7750.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7752.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7753.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7761.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7762.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7763.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7764.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7769.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7775.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7796.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7801.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7814.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7815.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7816.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7820.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7834.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7836.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7838.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7846.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7852.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7854.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7859.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7863.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7864.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7872.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7885.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7886.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7888.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7889.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7891.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7899.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7905.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7912.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7925.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7932.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7938.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7939.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7942.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7945.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7946.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7974.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7977.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\out.txt" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7671.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7682.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7684.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7693.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7700.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7705.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7716.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7717.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7720.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7722.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7723.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7724.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7728.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7730.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7732.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7733.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7737.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7746.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7747.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7749.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7750.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7752.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7753.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7761.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7762.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7763.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7764.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7769.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7775.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7796.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7801.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7814.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7815.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7816.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7820.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7834.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7836.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7838.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7846.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7852.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7854.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7859.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7863.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7864.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7872.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7885.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7886.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7888.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7889.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7891.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7899.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7905.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7912.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7925.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7932.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7938.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7939.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7942.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7945.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7946.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7974.jpg" />
+    <Content Include="SiteContent\Galleries\Friday_the_13th_2013\tnail\DSC_7977.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\1011611_296256487181362_137859248_n.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\1151028_296256527181358_549087956_n.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\1208830_296256520514692_767366623_n.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1011611_296256487181362_137859248_n.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1151028_296256527181358_549087956_n.jpg" />
+    <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\site.css.map">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="css\site.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\Bootstrap\.csscomb.json" />
+    <Content Include="css\Bootstrap\.csslintrc" />
+    <Content Include="css\Bootstrap\alerts.less" />
+    <Content Include="css\Bootstrap\badges.less" />
+    <Content Include="css\Bootstrap\bootstrap.less" />
+    <Content Include="css\Bootstrap\breadcrumbs.less" />
+    <Content Include="css\Bootstrap\button-groups.less" />
+    <Content Include="css\Bootstrap\buttons.less" />
+    <Content Include="css\Bootstrap\carousel.less" />
+    <Content Include="css\Bootstrap\close.less" />
+    <Content Include="css\Bootstrap\code.less" />
+    <Content Include="css\Bootstrap\component-animations.less" />
+    <Content Include="css\Bootstrap\dropdowns.less" />
+    <Content Include="css\Bootstrap\forms.less" />
+    <Content Include="css\Bootstrap\glyphicons.less" />
+    <Content Include="css\Bootstrap\grid.less" />
+    <Content Include="css\Bootstrap\input-groups.less" />
+    <Content Include="css\Bootstrap\jumbotron.less" />
+    <Content Include="css\Bootstrap\labels.less" />
+    <Content Include="css\Bootstrap\list-group.less" />
+    <Content Include="css\Bootstrap\media.less" />
+    <Content Include="css\Bootstrap\mixins.less" />
+    <Content Include="css\Bootstrap\modals.less" />
+    <Content Include="css\Bootstrap\navbar.less" />
+    <Content Include="css\Bootstrap\navs.less" />
+    <Content Include="css\Bootstrap\normalize.less" />
+    <Content Include="css\Bootstrap\pager.less" />
+    <Content Include="css\Bootstrap\pagination.less" />
+    <Content Include="css\Bootstrap\panels.less" />
+    <Content Include="css\Bootstrap\popovers.less" />
+    <Content Include="css\Bootstrap\print.less" />
+    <Content Include="css\Bootstrap\progress-bars.less" />
+    <Content Include="css\Bootstrap\responsive-utilities.less" />
+    <Content Include="css\Bootstrap\scaffolding.less" />
+    <Content Include="css\Bootstrap\tables.less" />
+    <Content Include="css\Bootstrap\theme.less" />
+    <Content Include="css\Bootstrap\thumbnails.less" />
+    <Content Include="css\Bootstrap\tooltip.less" />
+    <Content Include="css\Bootstrap\type.less" />
+    <Content Include="css\Bootstrap\utilities.less" />
+    <Content Include="css\Bootstrap\variables.less" />
+    <Content Include="css\Bootstrap\wells.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapThemes\bootstrap.css.map" />
+    <Content Include="css\BootstrapThemes\bootstrap.less" />
+    <Content Include="css\BootstrapThemes\dropdowns.less" />
+    <Content Include="css\BootstrapThemes\navbar.less" />
+    <Content Include="css\BootstrapThemes\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\bootstrap.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\manage.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\manage.css.map">
+      <DependentUpon>manage.css</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\dropzone.js" />
+    <Content Include="css\Dropzone\dropzone.css" />
+    <Content Include="css\Dropzone\basic.css" />
+    <Content Include="css\Dropzone\stylus\dropzone.styl" />
+    <Content Include="css\Dropzone\stylus\basic.styl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\BootstrapManageThemes\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <None Include="in-the-frontrow - FTP.pubxml" />
+    <None Include="in-the-frontrow - Web Deploy.pubxml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <OutputPath>bin\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55046</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55046/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
