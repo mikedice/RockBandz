@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="NewGalleryApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="css/BootstrapManageThemes/bootstrap.css">
+    <link rel="stylesheet" href="css/BootstrapManageThemes/manage.css">
+    <link rel="stylesheet" href="css/BootstrapManageThemes/manage.css">
+    <link rel="stylesheet" href="css/Dropzone/dropzone.css">
+</head>
+<body class="manage-body">
+    <div class="container" ng-controller="NewGalleryController">
+        <div class="row" id="body-container">
+            <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="background-color:green">
+                <form role="form">
+                    <button type="submit" class="btn btn-default">Save Changes</button>
+                    <div class="form-group">
+                        <label for="galleryTitle">Gallery Title</label>
+                        <input type="text" class="form-control" id="galleryTitle" placeholder="Enter Gallery Title" ng-model="galleryTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="caption">Gallery Description</label>
+                        <textarea class="form-control" rows="4" id="caption" placeholder="Enter Description"></textarea>
+                    </div>
+                </form>
+                <div id="uploadWaitSpinner" ng-show="!readyForUpload">
+                    <p>Preparing for upload</p>
+                </div>
+                <div id="dropzone" ng-show="readyForUpload">
+                    <form style="min-height: 360px; background-color:azure"
+                          action="api/images"
+                          class="dropzone dz-clickable"
+                          id="uploadFilesForm">
+                        <div class="dz-default dz-message"><span>drop files here to upload</span></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="js/dropzone.js"></script>
+    <script src="js/newGalleryApp.js"></script>
+</body>
+
+
+
+</html>

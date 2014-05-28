@@ -1,13 +1,8 @@
-﻿var app = angular.module('ManagerApp', []);
-app.controller('Management', function ($scope) {
+﻿var app = angular.module('ManagerApp', ['ui.bootstrap']);
+app.controller('Management', function ($scope, $modal, $log) {
     $scope.galleryTitle = "";
     $scope.uploadUrlRoot = "api/images?galleryName=";
+    Dropzone.prototype.defaultOptions.url = $scope.uploadUrlRoot;
 
-    $scope.$watch('galleryTitle', function (value) {
-        Dropzone.instances[0].options.url = $scope.uploadUrlRoot + value;
-    });
-
-    var myDropzone = document.querySelectorAll(".my-dropzone")
-
-    Dropzone.instances[0].options.url = $scope.uploadUrlRoot + value;
 });
+

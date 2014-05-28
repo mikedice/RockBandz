@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,24 +15,31 @@ namespace WebApplication1.Controllers
 {
     public class ImagesController : ApiController
     {
-        //
-        // GET: /Images/
-        public int Index()
+        public int Get()
         {
             return 1;
         }
+
+        //public string GetNewGallery()
+        //{
+        //    var gallery = Guid.NewGuid();
+        //    MakeGalleryFolder(gallery);
+        //    return gallery.ToString();
+        //}
         
         // POST api/images
         public Task<HttpResponseMessage> Post(string galleryName)
         {
+            var galleryFolder = GetGalleryFolder(galleryName);
+
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
+
+            var provider = new MultipartFormDataStreamProvider(galleryFolder);
 
             // Read the form data and return an async task.
             var task = Request.Content.ReadAsMultipartAsync(provider).
@@ -52,6 +61,36 @@ namespace WebApplication1.Controllers
                 });
 
             return task;
+        }
+
+        private static string GetGalleryFolder(string galleryName)
+        {
+            var folder = ConfigurationManager.AppSettings["GalleryFolder"];
+            var vpath = HttpContext.Current.Server.MapPath(folder);
+            galleryName = galleryName.Trim();
+            galleryName = galleryName.Replace("\"", string.Empty);
+            
+            var combined = Path.Combine(vpath, galleryName);
+            if (!Directory.Exists(combined))
+            {
+                throw new InvalidOperationException("gallery doesn't exist");
+            }
+            return combined;
+        }
+
+        private static void MakeGalleryFolder(Guid gallery)
+        {
+            var folder = ConfigurationManager.AppSettings["GalleryFolder"];
+            var vpath = HttpContext.Current.Server.MapPath(folder);
+            if (!Directory.Exists(vpath))
+            {
+                Directory.CreateDirectory(vpath);
+            }
+            var combined = Path.Combine(vpath, gallery.ToString());
+            if (!Directory.Exists(combined))
+            {
+                Directory.CreateDirectory(combined);
+            }
         }
 	}
 }

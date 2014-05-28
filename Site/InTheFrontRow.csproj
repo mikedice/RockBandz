@@ -151,6 +151,8 @@
     <Content Include="img\play-pause.svg" />
     <Content Include="img\smoke1.jpg" />
     <Content Include="img\smoke2.jpg" />
+    <Content Include="img\spritemap%402x.png" />
+    <Content Include="img\spritemap.png" />
     <Content Include="img\transparentBackground.png" />
     <Content Include="img\twitter.png" />
     <Content Include="img\video-play.png" />
@@ -169,12 +171,13 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\demo.js" />
-
     <Content Include="js\jquery.blueimp-gallery.js" />
     <Content Include="js\jquery.blueimp-gallery.min.js" />
     <Content Include="js\managerApp.js" />
+    <Content Include="js\newGalleryApp.js" />
     <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
     <Content Include="Manage.html" />
+    <Content Include="NewGallery.html" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7682.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7684.jpg" />
@@ -306,7 +309,9 @@
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1011611_296256487181362_137859248_n.jpg" />
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1151028_296256527181358_549087956_n.jpg" />
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\site.css.map">
