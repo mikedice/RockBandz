@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace WebApplication1.Controllers
+namespace InTheFrontRow.Controllers
 {
     public class ImagesController : ApiController
     {
@@ -20,12 +20,23 @@ namespace WebApplication1.Controllers
             return 1;
         }
 
-        //public string GetNewGallery()
-        //{
-        //    var gallery = Guid.NewGuid();
-        //    MakeGalleryFolder(gallery);
-        //    return gallery.ToString();
-        //}
+        public string Get(string getCommand)
+        {
+            if (string.IsNullOrWhiteSpace((string)getCommand))
+            {
+                return string.Empty;
+            }
+            var command = ((string)getCommand).Trim();
+
+            if (command.Equals("NewGallery", StringComparison.OrdinalIgnoreCase))
+            {
+                var gallery = Guid.NewGuid();
+                MakeGalleryFolder(gallery);
+                return gallery.ToString();
+            }
+
+            throw new ArgumentException("Unrecognized command");
+        }
         
         // POST api/images
         public Task<HttpResponseMessage> Post(string galleryName)

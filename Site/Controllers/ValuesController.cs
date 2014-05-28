@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace WebApplication1.Controllers
+namespace InTheFrontRow.Controllers
 {
     public class ValuesController : ApiController
     {
@@ -24,11 +24,13 @@ namespace WebApplication1.Controllers
         // POST api/values
         public void Post([FromBody]string value)
         {
+            System.Diagnostics.Debug.WriteLine(value);
         }
 
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)
         {
+            System.Diagnostics.Debug.WriteLine(value);
         }
 
         // DELETE api/values/5

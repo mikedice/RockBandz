@@ -1,7 +1,7 @@
 ﻿var app = angular.module('NewGalleryApp', []);
 app.controller('NewGalleryController', function ($scope, $http, $log) {
     $scope.galleryTitle = "";
-    $scope.uploadUrlRoot = "api/images?galleryName=";
+    $scope.uploadUrlRoot = "api/gallery?galleryUUID=";
     $scope.readyForUpload = false;
     //Dropzone.prototype.defaultOptions.url = $scope.uploadUrlRoot;
     $scope.readyForUpload = true;

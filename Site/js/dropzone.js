@@ -289,7 +289,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
 
     Dropzone.prototype.defaultOptions = {
       url: null,
-      method: "post",
+      method: "put",
       withCredentials: false,
       parallelUploads: 2,
       uploadMultiple: false,
