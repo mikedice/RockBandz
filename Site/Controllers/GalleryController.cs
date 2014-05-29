@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 using InTheFrontRow.Models.Gallery;
+using Newtonsoft.Json;
 
 namespace InTheFrontRow.Controllers
 {
@@ -31,29 +30,25 @@ namespace InTheFrontRow.Controllers
             return new Gallery() { Name = "frack!" };
         }
 
-        // Create a new gallery. Gallery ID is supplied by the caller. Gallery ID must parse as a GUID
-        // POST api/gallery/id
-        //   no content body is read
-        // galleryId is a unique ID for a gallery
-        public Task<HttpResponseMessage> Post(string id)
-        {
-            // var galleryId = Guid.Parse(galleryUUID);
-            // MakeGalleryFolder(galleryId);
-            var tco = new TaskCompletionSource<HttpResponseMessage>();
-            tco.SetResult(new HttpResponseMessage(HttpStatusCode.OK));
-            return tco.Task;
-        }
-
-        // Create a new gallery. Gallery ID is created on the server
+        // Create a new gallery and its ID. Return the GalleryId
         // POST api/gallery
         //   no content body is read
         // galleryId is a unique ID for a gallery
         public Task<HttpResponseMessage> Post()
         {
-            // var galleryId = Guid.Parse(galleryUUID);
-            // MakeGalleryFolder(galleryId);
+            Guid galleryId = Guid.NewGuid();
+            MakeGalleryFolder(galleryId);
+            
+            // Create successful response content
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var createResponse = new CreateGalleryResponse()
+            {
+                GalleryId = galleryId.ToString()
+            };
+            response.Content = new StringContent(JsonConvert.SerializeObject(createResponse), System.Text.Encoding.UTF8);
+
             var tco = new TaskCompletionSource<HttpResponseMessage>();
-            tco.SetResult(new HttpResponseMessage(HttpStatusCode.OK));
+            tco.SetResult(response);
             return tco.Task;
         }
 
@@ -62,20 +57,77 @@ namespace InTheFrontRow.Controllers
         //  content body is MIME content that contains an image.
         public Task<HttpResponseMessage> Put(string id)
         {
-            var tco = new TaskCompletionSource<HttpResponseMessage>();
-            tco.SetResult(new HttpResponseMessage(HttpStatusCode.OK));
-            return tco.Task;
+            var galleryFolder = GetGalleryFolder(id);
+
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+
+            var provider = new MultipartFormDataStreamProvider(galleryFolder);
+
+            // Read the form data and return an async task.
+            var task = Request.Content.ReadAsMultipartAsync(provider).
+                ContinueWith(t =>
+                {
+                    if (t.IsFaulted || t.IsCanceled)
+                    {
+                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
+                    }
+
+                    // This illustrates how to get the file names.
+                    foreach (MultipartFileData file in provider.FileData)
+                    {
+                        Trace.TraceInformation(file.Headers.ContentDisposition.FileName);
+                        Trace.TraceInformation("Server file path: {0}", file.LocalFileName);
+                        Trace.TraceInformation("GalleryId: {0}", id);
+                        var fileName = TrimName(file.Headers.ContentDisposition.FileName);
+
+                        var filePath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), fileName);
+                        if (!File.Exists(filePath))
+                        {
+                            File.Move(file.LocalFileName, filePath);
+                        }
+                        Trace.TraceInformation("Created file: {0}", filePath);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                });
+
+            return task;
+        }
+
+        // DELETE api/gallery/id
+        public void Delete(string id, string file)
+        {
+            var galleryFile = GetGalleryFile(TrimName(id), TrimName(file));
+            if (File.Exists(galleryFile))
+            {
+                File.Delete(galleryFile);
+                Trace.TraceInformation("delete file deleted file {0} from gallery {1}", file, id);
+            }
+            else
+            {
+                Trace.TraceInformation("delete file file didn't exist , file {0} from gallery {1}", file, id);
+            }
         }
 
         // Helpers
+        private static string GetGalleryFile(string galleryName, string galleryFile)
+        {
+            var galleryFolder = GetGalleryFolder(galleryName);
+            var result = Path.Combine(galleryFolder, galleryFile);
+            return result;
+        }
+
         private static string GetGalleryFolder(string galleryName)
         {
             var folder = ConfigurationManager.AppSettings["GalleryFolder"];
-            var vpath = HttpContext.Current.Server.MapPath(folder);
-            galleryName = galleryName.Trim();
-            galleryName = galleryName.Replace("\"", string.Empty);
+            var vpath = HttpContext.Current.Server.MapPath("~");
+            vpath = Path.Combine(vpath, folder);
 
-            var combined = Path.Combine(vpath, galleryName);
+            var combined = Path.Combine(vpath, TrimName(galleryName));
             if (!Directory.Exists(combined))
             {
                 throw new InvalidOperationException("gallery doesn't exist");
@@ -86,7 +138,8 @@ namespace InTheFrontRow.Controllers
         private static void MakeGalleryFolder(Guid gallery)
         {
             var folder = ConfigurationManager.AppSettings["GalleryFolder"];
-            var vpath = HttpContext.Current.Server.MapPath(folder);
+            var vpath = HttpContext.Current.Server.MapPath("~");
+            vpath = Path.Combine(vpath, folder);
             if (!Directory.Exists(vpath))
             {
                 Directory.CreateDirectory(vpath);
@@ -96,6 +149,13 @@ namespace InTheFrontRow.Controllers
             {
                 Directory.CreateDirectory(combined);
             }
+        }
+
+        private static string TrimName(string name)
+        {
+            var result = name.Trim();
+            result = name.Replace("\"", string.Empty);
+            return result;
         }
     }
 }
