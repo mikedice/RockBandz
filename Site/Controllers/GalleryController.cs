@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -55,7 +56,7 @@ namespace InTheFrontRow.Controllers
         // Add images to gallery. Must supply the id of an existing gallery
         // PUT api/gallery/id
         //  content body is MIME content that contains an image.
-        public Task<HttpResponseMessage> Put(string id)
+        public async Task<HttpResponseMessage> Put(string id)
         {
             var galleryFolder = GetGalleryFolder(id);
 
@@ -65,37 +66,32 @@ namespace InTheFrontRow.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-
             var provider = new MultipartFormDataStreamProvider(galleryFolder);
 
+            Trace.TraceInformation("Before async on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            
             // Read the form data and return an async task.
-            var task = Request.Content.ReadAsMultipartAsync(provider).
-                ContinueWith(t =>
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            Trace.TraceInformation("after async on thread {0}", Thread.CurrentThread.ManagedThreadId);
+
+            // This illustrates how to get the file names.
+            foreach (MultipartFileData file in provider.FileData)
+            {
+                Trace.TraceInformation(file.Headers.ContentDisposition.FileName);
+                Trace.TraceInformation("Server file path: {0}", file.LocalFileName);
+                Trace.TraceInformation("GalleryId: {0}", id);
+                var fileName = TrimName(file.Headers.ContentDisposition.FileName);
+
+                var filePath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), fileName);
+                if (!File.Exists(filePath))
                 {
-                    if (t.IsFaulted || t.IsCanceled)
-                    {
-                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
-                    }
+                    File.Move(file.LocalFileName, filePath);
+                }
+                Trace.TraceInformation("Created file: {0}", filePath);
+            }
 
-                    // This illustrates how to get the file names.
-                    foreach (MultipartFileData file in provider.FileData)
-                    {
-                        Trace.TraceInformation(file.Headers.ContentDisposition.FileName);
-                        Trace.TraceInformation("Server file path: {0}", file.LocalFileName);
-                        Trace.TraceInformation("GalleryId: {0}", id);
-                        var fileName = TrimName(file.Headers.ContentDisposition.FileName);
-
-                        var filePath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), fileName);
-                        if (!File.Exists(filePath))
-                        {
-                            File.Move(file.LocalFileName, filePath);
-                        }
-                        Trace.TraceInformation("Created file: {0}", filePath);
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                });
-
-            return task;
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // DELETE api/gallery/id
@@ -120,7 +116,6 @@ namespace InTheFrontRow.Controllers
             var result = Path.Combine(galleryFolder, galleryFile);
             return result;
         }
-
         private static string GetGalleryFolder(string galleryName)
         {
             var folder = ConfigurationManager.AppSettings["GalleryFolder"];
@@ -134,7 +129,6 @@ namespace InTheFrontRow.Controllers
             }
             return combined;
         }
-
         private static void MakeGalleryFolder(Guid gallery)
         {
             var folder = ConfigurationManager.AppSettings["GalleryFolder"];
@@ -150,7 +144,6 @@ namespace InTheFrontRow.Controllers
                 Directory.CreateDirectory(combined);
             }
         }
-
         private static string TrimName(string name)
         {
             var result = name.Trim();
