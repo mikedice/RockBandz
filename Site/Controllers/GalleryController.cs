@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,25 +17,36 @@ namespace InTheFrontRow.Controllers
 {
     public class GalleryController : ApiController
     {
-        //  returns list of all galleries
-        // /api/gallery
+        private const string MetadataFileName = "gallery.metadata";
+        /// <summary>
+        /// return a list of all Galleries
+        /// GET api/gallery
+        /// </summary>
+        /// <returns>a list of gallery objects</returns>
         public IEnumerable<Gallery> Get()
         {
-            return new List<Gallery>();
+            var folders = GetAllGalleryFolders();
+
+            return GalleriesFromFolders(folders);
         }
 
-        // returns a single gallery. 
-        // Id parameter can be the gallery id or the name
-        // api/gallery/id
+        /// <summary>
+        /// return a single gallery
+        /// GET api/gallery/{id}
+        /// </summary>
+        /// <param name="id">id of the gallery</param>
+        /// <returns>A Gallery object</returns>
         public Gallery Get(string id)
         {
-            return new Gallery() { Name = "frack!" };
+            return new Gallery() ;
         }
 
-        // Create a new gallery and its ID. Return the GalleryId
-        // POST api/gallery
-        //   no content body is read
-        // galleryId is a unique ID for a gallery
+        /// <summary>
+        /// Create a new gallery and its ID. Return the GalleryId 
+        /// POST api/gallery
+        /// no content body
+        /// </summary>
+        /// <returns>An HttpResponseMessage</returns>
         public Task<HttpResponseMessage> Post()
         {
             Guid galleryId = Guid.NewGuid();
@@ -53,10 +65,16 @@ namespace InTheFrontRow.Controllers
             return tco.Task;
         }
 
-        // Add images to gallery. Must supply the id of an existing gallery
-        // PUT api/gallery/id
-        //  content body is MIME content that contains an image.
-        public async Task<HttpResponseMessage> Put(string id)
+
+        /// <summary>
+        /// Add an image to a gallery
+        /// PUT api/gallery/{id}/image
+        /// Content body is MIME content that contains an image to add to the gallery
+        /// </summary>
+        /// <param name="id">id of the gallery</param>
+        /// <returns>HttpResponseMessage</returns>
+        [HttpPut]
+        public async Task<HttpResponseMessage> Image(string id)
         {
             var galleryFolder = GetGalleryFolder(id);
 
@@ -94,7 +112,36 @@ namespace InTheFrontRow.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        // DELETE api/gallery/id
+        /// <summary>
+        /// Save the gallery metadata
+        /// PUT api/gallery/{id}/metdata
+        /// </summary>
+        /// <param name="id">The gallery ID</param>
+        /// <param name="metadata">The metadata to save</param>
+        /// <returns>HTTP Response message</returns>
+        [HttpPut]
+        public HttpResponseMessage Metadata(string id, GalleryMetadata metadata)
+        {
+            if (metadata == null || (metadata.Title == null && metadata.Description == null))
+            {
+                Trace.TraceInformation("PUT GalleryMetadata did not save metadata. No metadata was received");
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            metadata.Id = TrimName(id);
+            WriteMetadata(id, metadata);
+
+            Trace.TraceInformation("PUT GalleryMetadata title: {0}{1}description: {1}",
+                metadata.Title, Environment.NewLine, metadata.Description);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Delete file from gallery
+        /// DELETE api/gallery/{id}?file={filename}
+        /// </summary>
+        /// <param name="id">gallery id</param>
+        /// <param name="file">name of file to delete</param>
         public void Delete(string id, string file)
         {
             var galleryFile = GetGalleryFile(TrimName(id), TrimName(file));
@@ -109,7 +156,93 @@ namespace InTheFrontRow.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete an entire gallery
+        /// DELETE api/gallery/{id}
+        /// </summary>
+        /// <param name="id">id of the gallery to delete</param>
+        public void Delete(string id)
+        {
+            var path = GetGalleryFolder(id);
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+                Trace.TraceInformation("delete entire gallery with id {0}", path);
+            }
+            else
+            {
+                Trace.TraceInformation("no directory to delete at path {0}", path);
+            }
+        }
+
         // Helpers
+        private static IEnumerable<Gallery> GalleriesFromFolders(IEnumerable<string> folders)
+        {
+            var results = new List<Gallery>();
+            foreach(var galleryFolder in folders)
+            {
+                var gallery = new Gallery();
+                
+                // read metadata. Note we already checked that the metadata file exists
+                using (StreamReader reader = new StreamReader(
+                    Path.Combine(galleryFolder, MetadataFileName)))
+                    {
+                        var json = reader.ReadToEnd();
+                        gallery.Metadata = JsonConvert.DeserializeObject<GalleryMetadata>(json);
+                    }
+
+                // read all the files in the directory
+                var files = Directory.EnumerateFiles(galleryFolder);
+                var pathElements = galleryFolder.Split(new char[] {'\\'});
+                var galleryRoot = pathElements[pathElements.Length-2];
+                var galleryDir = pathElements[pathElements.Length-1];
+                var galleryUrlTemplate = "/{0}/{1}/{2}";
+                
+                var fileUrls = new List<string>();
+                foreach(var file in files)
+                {
+                    if (!Path.GetFileName(file).Equals(MetadataFileName))
+                    {
+                        fileUrls.Add(string.Format(galleryUrlTemplate, galleryRoot, galleryDir, Path.GetFileName(file)));
+                    }
+                }
+                gallery.ImageUrls = fileUrls;
+                results.Add(gallery);
+            }
+
+            return results;
+        }
+
+        private static IEnumerable<string> GetAllGalleryFolders()
+        {
+            var folder = ConfigurationManager.AppSettings["GalleryFolder"];
+            var vpath = HttpContext.Current.Server.MapPath("~");
+            vpath = Path.Combine(vpath, folder);
+            var directories = Directory.GetDirectories(vpath);
+            var validDirectories = new List<string>();
+            foreach(var directory in directories)
+            {
+                if (File.Exists(Path.Combine(directory, MetadataFileName)))
+                {
+                    validDirectories.Add(directory);
+                }
+            }
+            return validDirectories;
+        }
+        private static void WriteMetadata(string id, GalleryMetadata metadata) 
+        {
+            var folder = GetGalleryFolder(id);
+            var metadataPath = Path.Combine(folder, MetadataFileName);
+
+            using (FileStream fs = new FileStream(metadataPath, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                {
+                    writer.Write(JsonConvert.SerializeObject(metadata));
+                }
+            }
+            
+        }
         private static string GetGalleryFile(string galleryName, string galleryFile)
         {
             var galleryFolder = GetGalleryFolder(galleryName);

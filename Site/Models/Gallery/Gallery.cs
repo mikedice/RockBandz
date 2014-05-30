@@ -7,6 +7,7 @@ namespace InTheFrontRow.Models.Gallery
 {
     public class Gallery
     {
-        public string Name { get; set; }
+        public GalleryMetadata Metadata { get; set; }
+        public IEnumerable<string> ImageUrls { get; set; }
     }
 }

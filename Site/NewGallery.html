@@ -1,12 +1,11 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="NewGalleryApp">
 <head>
+    <title>New Gallery</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
     <link rel="stylesheet" href="css/BootstrapManageThemes/bootstrap.css">
-    <link rel="stylesheet" href="css/BootstrapManageThemes/manage.css">
     <link rel="stylesheet" href="css/BootstrapManageThemes/manage.css">
     <link rel="stylesheet" href="css/Dropzone/dropzone.css">
 </head>
@@ -15,14 +14,15 @@
         <div class="row" id="body-container">
             <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="background-color:green">
                 <form role="form">
-                    <button type="submit" class="btn btn-default">Save Changes</button>
+                    <button ng-click="SaveGallery()" class="btn btn-default">Save</button>
+                    <button ng-click="CancelGallery()" class="btn btn-default">Cancel</button>
                     <div class="form-group">
                         <label for="galleryTitle">Gallery Title</label>
                         <input type="text" class="form-control" id="galleryTitle" placeholder="Enter Gallery Title" ng-model="galleryTitle">
                     </div>
                     <div class="form-group">
                         <label for="caption">Gallery Description</label>
-                        <textarea class="form-control" rows="4" id="caption" placeholder="Enter Description"></textarea>
+                        <textarea class="form-control" rows="4" id="caption" placeholder="Enter Description" ng-model="galleryDescription"></textarea>
                     </div>
                 </form>
                 <div id="uploadWaitSpinner" ng-show="!readyForUpload">
