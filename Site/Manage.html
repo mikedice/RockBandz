@@ -12,9 +12,13 @@
     <div class="container" ng-controller="Management">
         <div class="row" id="body-container">
             <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="background-color:green">
-                <div ng-repeat="gallery in galleryList">
+                <div id="gallery-view-holder" ng-repeat="gallery in galleryList">
+                    
                     <p>{{gallery.Metadata.Title}}</p>
                     <p>{{gallery.Metadata.Description}}</p>
+                    <div id="gallery-image-holder" >
+                        <img ng-repeat="thumb in gallery.thumbnails" ng-src="{{thumb.data}}" />
+                    </div>
                 </div>
             </div>
         </div>

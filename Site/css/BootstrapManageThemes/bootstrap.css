@@ -38,6 +38,11 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+#gallery-image-holder {
+  min-height: 360px;
+  background-color: azure;
+  position: relative;
+}
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
