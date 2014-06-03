@@ -311,6 +311,9 @@
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
     <Content Include="test\managerAppSpec.js" />
     <Content Include="test\SpecRunner.html" />
+    <Content Include="test\test-images\DSC_7728.jpg" />
+    <Content Include="test\test-images\DSC_7852.jpg" />
+    <Content Include="test\test-images\DSC_7899.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

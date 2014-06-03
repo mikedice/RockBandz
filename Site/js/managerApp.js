@@ -1,15 +1,23 @@
-﻿var app = angular.module('ManagerApp', []);
-app.controller('Management', function ($scope, $http, $log) {
+﻿var app = angular.module('ManagerApp', [])
+    .factory('ServiceCallback', [function(){}]);
+
+app.controller('Management', ['$scope', '$http', '$log', 'ServiceCallback', function ($scope, $http, $log, ServiceCallback) {
     $scope.thumb = "fudge";
 
     $scope.NewGallery = function () {
         window.location = "/newgallery.html";
     }
 
-    $http.get("/api/gallery")
-        .success(function (data) {
 
-            processGallery(data, function (galleryIndex, thumbnails) {
+    $http.get("/api/gallery")
+        .success(function(data) {
+            ServiceCallback();
+            //for (var i = 0; i < data.length; i++) {
+            //    for (var p = 0; p < data[i].ImageUrls.length; p++) {
+            //        processImage(data[i], data[i].ImageUrls[p]);
+            //    }
+            //}
+            processGallery(data, function(galleryIndex, thumbnails) {
 
                 // save the thumbnail list on the gallery
                 data[galleryIndex].thumbnails = thumbnails;
@@ -29,15 +37,15 @@ app.controller('Management', function ($scope, $http, $log) {
                 // If all thumbnails on all galleries have been created, bind the gallery list
                 // to the scope so they can be displayed.
                 if (done) {
-                    $scope.$apply(function () {
+                    $scope.$apply(function() {
                         $scope.galleryList = data;
-                    })
+                    });
                 }
             });
         })
-        .error(function (data) {
+        .error(function(data) {
             window.alert(data.error);
-        })
+        });
 
     // ProcessGallery takes a list of image galleries. For every image in the gallery, a thumbnail
     // gets created for the image. For every thumbnail that gets created the callback is called with
@@ -189,5 +197,5 @@ app.controller('Management', function ($scope, $http, $log) {
             _this.emit("thumbnail", file, thumbnail);
         };
     };
-});
+}]);
 
