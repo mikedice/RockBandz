@@ -690,10 +690,11 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
           if (_this.options.acceptedFiles != null) {
             _this.hiddenFileInput.setAttribute("accept", _this.options.acceptedFiles);
           }
-          _this.hiddenFileInput.style.visibility = "hidden";
+          // work around for IE security sandbox. Set position left and turn off 'hidden'
+          //_this.hiddenFileInput.style.visibility = "hidden";
           _this.hiddenFileInput.style.position = "absolute";
           _this.hiddenFileInput.style.top = "0";
-          _this.hiddenFileInput.style.left = "0";
+          _this.hiddenFileInput.style.left = "-500";
           _this.hiddenFileInput.style.height = "0";
           _this.hiddenFileInput.style.width = "0";
           document.body.appendChild(_this.hiddenFileInput);

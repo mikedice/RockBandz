@@ -1,6 +1,7 @@
 ﻿var app = angular.module('ManagerApp', []);
 app.controller('Management', function ($scope, $http, $log) {
-    $scope.thumb = "fuck";
+    $scope.thumb = "fudge";
+
     $scope.NewGallery = function () {
         window.location = "/newgallery.html";
     }
@@ -15,20 +16,19 @@ app.controller('Management', function ($scope, $http, $log) {
                 var done = true;
 
                 // check to see if all thumbnails on all galleries have been created
-                for (i = 0; i < data.length; i++)
-                {
-                    if (data[i].ImageUrls != null && data[i].ImageUrls.length > 0) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].thumbnails != null && data[i].ImageUrls != null && data[i].ImageUrls.length > 0) {
                         if (data[i].thumbnails.length != data[i].ImageUrls.length) {
                             done = false;
                             break;
                         }
                     }
+
                 }
 
-                // If all thumbnails on all galleries have been created, bind the galler list
+                // If all thumbnails on all galleries have been created, bind the gallery list
                 // to the scope so they can be displayed.
-                if (done)
-                {
+                if (done) {
                     $scope.$apply(function () {
                         $scope.galleryList = data;
                     })
@@ -45,28 +45,25 @@ app.controller('Management', function ($scope, $http, $log) {
     // The caller needs to keep track of how many thumbnails have been created for the gallery and do something
     // sensible when they have all been created
     var processGallery = function (galleries, callback) {
-        if (galleries == null || galleries.length <= 0)
+        if (galleries == null || typeof galleries.length == 'undefined' || galleries.length <= 0)
             return;
 
-        for (i = 0; i<galleries.length; i++)
-        {
-            if (galleries[i].ImageUrls == null || galleries[i].ImageUrls.length <= 0)
-            {
+        for (i = 0; i < galleries.length; i++) {
+            if (galleries[i].ImageUrls == null || galleries[i].ImageUrls.length <= 0) {
                 continue;
             }
 
-            for (p=0; p<galleries[i].ImageUrls.length; p++)
-            {
+            for (p = 0; p < galleries[i].ImageUrls.length; p++) {
                 var resultCollection = [];
                 var galleryIndex = i;
                 var img = document.createElement("img");
-                img.addEventListener('load', function(arg) {
-                        $log.info("image loaded");
-                        var options = resize(arg.target);
-                        var thumbData = createThumb(options, arg.target);
-                        resultCollection.push({ id: p, data: thumbData });
-                        callback(galleryIndex, resultCollection);
-                    }, false);
+                img.addEventListener('load', function (arg) {
+                    $log.info("image loaded");
+                    var options = resize(arg.target);
+                    var thumbData = createThumb(options, arg.target);
+                    resultCollection.push({ id: p, data: thumbData });
+                    callback(galleryIndex, resultCollection);
+                }, false);
 
                 img.src = galleries[i].ImageUrls[p];
             }
@@ -74,7 +71,7 @@ app.controller('Management', function ($scope, $http, $log) {
     };
 
     // helpers borrowed from dropzone
-    var resize = function(img) {
+    var resize = function (img) {
         var info, srcRatio, trgRatio;
         info = {
             srcX: 0,
@@ -161,7 +158,7 @@ app.controller('Management', function ($scope, $http, $log) {
         }
     };
 
-    var drawImageIOSFix = function(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+    var drawImageIOSFix = function (ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
         var vertSquashRatio;
         vertSquashRatio = detectVerticalSquash(img);
         return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);

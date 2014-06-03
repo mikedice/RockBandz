@@ -159,6 +159,7 @@
     <Content Include="Index.html" />
     <Content Include="Index.old.html" />
     <Content Include="js\angular.js" />
+    <Content Include="js\angular-mocks.js" />
     <Content Include="js\blueimp-gallery-fullscreen.js" />
     <Content Include="js\blueimp-gallery-indicator.js" />
     <Content Include="js\blueimp-gallery-video.js" />
@@ -308,6 +309,8 @@
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1011611_296256487181362_137859248_n.jpg" />
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1151028_296256527181358_549087956_n.jpg" />
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
+    <Content Include="test\managerAppSpec.js" />
+    <Content Include="test\SpecRunner.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -376,6 +379,14 @@
     <Content Include="css\BootstrapThemes\dropdowns.less" />
     <Content Include="css\BootstrapThemes\navbar.less" />
     <Content Include="css\BootstrapThemes\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="test\lib\jasmine-2.0.0\boot.js" />
+    <Content Include="test\lib\jasmine-2.0.0\console.js" />
+    <Content Include="test\lib\jasmine-2.0.0\jasmine-html.js" />
+    <Content Include="test\lib\jasmine-2.0.0\jasmine.css" />
+    <Content Include="test\lib\jasmine-2.0.0\jasmine.js" />
+    <Content Include="test\lib\jasmine-2.0.0\jasmine_favicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\BootstrapManageThemes\bootstrap.less" />
