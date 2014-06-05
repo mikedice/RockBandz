@@ -1,7 +1,6 @@
-﻿var app = angular.module('ManagerApp', [])
-    .factory('ServiceCallback', [function(){}]);
+﻿var app = angular.module('ManagerApp', []);
 
-app.controller('Management', ['$scope', '$http', '$log', 'ServiceCallback', function ($scope, $http, $log, ServiceCallback) {
+app.controller('Management', ['$scope', '$http', '$log', function ($scope, $http, $log, ServiceCallback) {
     $scope.thumb = "fudge";
 
     $scope.NewGallery = function () {
@@ -11,12 +10,7 @@ app.controller('Management', ['$scope', '$http', '$log', 'ServiceCallback', func
 
     $http.get("/api/gallery")
         .success(function(data) {
-            ServiceCallback();
-            //for (var i = 0; i < data.length; i++) {
-            //    for (var p = 0; p < data[i].ImageUrls.length; p++) {
-            //        processImage(data[i], data[i].ImageUrls[p]);
-            //    }
-            //}
+
             processGallery(data, function(galleryIndex, thumbnails) {
 
                 // save the thumbnail list on the gallery
