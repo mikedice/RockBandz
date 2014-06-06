@@ -1,8 +1,7 @@
 ﻿
 var InTheFrontRow = InTheFrontRow || {};
 InTheFrontRow.Management = InTheFrontRow.Management || {};
-InTheFrontRow.Management.ManagementController = (function () {
-    var mySelf = {};
+InTheFrontRow.Management.ManagementController = (function (mySelf) {
 
     // instance variables
     var mLogService;
@@ -225,7 +224,7 @@ InTheFrontRow.Management.ManagementController = (function () {
     };
 
     return mySelf;
-})();
+})(InTheFrontRow.Management.ManagementController || {});
 
 
 

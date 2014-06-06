@@ -17,7 +17,7 @@
                     <p>{{gallery.Metadata.Title}}</p>
                     <p>{{gallery.Metadata.Description}}</p>
                     <div id="gallery-image-holder" >
-                        <img ng-repeat="thumb in gallery.thumbnails" ng-src="{{thumb.data}}" />
+                        <img ng-repeat="thumb in gallery.Thumbnails" ng-src="{{thumb.thumbnail}}" />
                     </div>
                 </div>
             </div>
@@ -30,6 +30,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
-    <script src="js/managerApp.js"></script>
+    <script src="js/managecontroller.js"></script>
+    <script src="js/managemodule.js"></script>
 </body>
 </html>
