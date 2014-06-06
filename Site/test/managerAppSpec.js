@@ -45,10 +45,7 @@ describe('managerApp function', function () {
         // function used in test cases to get a controller object
         createController = function () {
             var cont = $controller('Management', {
-                '$scope': $rootScope,
-                'ServiceCallback' : function() {
-
-                }
+                '$scope': $rootScope
             });
         };
     }));
@@ -65,17 +62,19 @@ describe('managerApp function', function () {
         $httpBackend.flush();
     }));
 
-    it('should request all galleries and compute their thumbnails', function (done) {
+    var theSpec = it('should request all galleries and compute their thumbnails', function (done) {
 
         $httpBackend.expectGET('/api/gallery');
         $rootScope.$watch('galleryList', function (newVal, oldVal) {
-            if ($rootScope.galleryList != null && $rootScope.galleryList.length == 2) {
-                expect($rootScope.galleryList.length).toEqual(2);
+            if (typeof $rootScope.galleryList != 'undefined' &&
+                typeof $rootScope.galleryList.length != 'undefined' &&
+                $rootScope.galleryList.length == 2) {
+                theSpec.expect(true).toEqual(true);
                 done(); // tell jasmine async work is done
             }
         });
 
-        var controller = createController();
+        var mController = createController();
         $httpBackend.flush();
     });
 

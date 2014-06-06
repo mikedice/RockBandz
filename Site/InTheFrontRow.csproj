@@ -173,7 +173,8 @@
     <Content Include="js\demo.js" />
     <Content Include="js\jquery.blueimp-gallery.js" />
     <Content Include="js\jquery.blueimp-gallery.min.js" />
-    <Content Include="js\managerApp.js" />
+    <Content Include="js\managecontroller.js" />
+    <Content Include="js\managemodule.js" />
     <Content Include="js\newGalleryApp.js" />
     <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
     <Content Include="Manage.html" />
