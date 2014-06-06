@@ -1,4 +1,7 @@
-﻿// Testing of the ManagerApp controller
+﻿// http://plnkr.co/edit/zdqy6yCYrv2sDhzYV3az?p=preview
+
+
+// Testing of the ManagerApp controller
 describe('managerApp function', function () {
 
     // Fake response to http GET /api/gallery
