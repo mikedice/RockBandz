@@ -1,7 +1,9 @@
 ﻿
 var InTheFrontRow = InTheFrontRow || {};
 InTheFrontRow.Management = InTheFrontRow.Management || {};
-InTheFrontRow.Management.ManagementController = (function(mySelf) {
+InTheFrontRow.Management.ManagementController = (function () {
+    var mySelf = {};
+
     // instance variables
     var mLogService;
     var mHttpService;
@@ -29,73 +31,78 @@ InTheFrontRow.Management.ManagementController = (function(mySelf) {
 
 // private helpers
     var initializeGalleries = function () {
+        var imagesToProcess = [];
 
-        // Start up async processing for this controller
-        mHttpService.get("/api/gallery")
-            .success(function (data) {
+        mHttpService.get("/api/gallery").success(function (galleries) {
+            for (var i = 0; i < galleries.length; i++) {
+                // Add a Thumbnails property to hold the thumbnails we compute
+                galleries[i].Thumbnails = [];
 
-                processGallery(data, function (galleryIndex, thumbnails) {
+                for (var p = 0; p < galleries[i].ImageUrls.length; p++) {
+                    imagesToProcess.push({
+                        imageUrl: galleries[i].ImageUrls[p],
+                        gallery: galleries[i]
+                    });
+                }
+            }
 
-                    // save the thumbnail list on the gallery
-                    data[galleryIndex].thumbnails = thumbnails;
-                    var done = true;
+            // Made a list of all the images to process now kick off that processing.
+            // The processing of the images is async work. We get called back each time an image
+            // is processed. We need to keep track of how many images were processed so that
+            // when the last one is processed we can apply the gallery list to the scope.
+            var totalImages = imagesToProcess.length;
+            var totalProcessed = 0;
 
-                    // check to see if all thumbnails on all galleries have been created
-                    for (i = 0; i < data.length; i++) {
-                        if (data[i].thumbnails != null && data[i].ImageUrls != null && data[i].ImageUrls.length > 0) {
-                            if (data[i].thumbnails.length != data[i].ImageUrls.length) {
-                                done = false;
-                                break;
-                            }
-                        }
-
-                    }
-
-                    // If all thumbnails on all galleries have been created, bind the gallery list
-                    // to the scope so they can be displayed.
-                    if (done) {
-                        mScope.$apply(function () {
-                            mScope.galleryList = data;
-                        });
-                    }
-                });
-            })
-            .error(function (data) {
-                window.alert(data.error);
+            processImages(imagesToProcess, function() {
+                totalProcessed++;
+                if (totalProcessed >= totalImages) {
+                    console.log("inside callback, all images processed");
+                    mScope.$apply(function() {
+                        mScope.galleryList = galleries;
+                    });
+                }
             });
+        });
 
     }
 
-    // ProcessGallery takes a list of image galleries. For every image in the gallery, a thumbnail
-    // gets created for the image. For every thumbnail that gets created the callback is called with
-    // the index of the gallery and an array of thumbnails that have so far been created for the gallery.
-    // The caller needs to keep track of how many thumbnails have been created for the gallery and do something
-    // sensible when they have all been created
-    var processGallery = function (galleries, callback) {
-        if (galleries == null || typeof galleries.length == 'undefined' || galleries.length <= 0)
-            return;
+    var processImages = function (imageList, completedCallback) {
+        // imageTags will store state for when the async work is completed
+        var imageTags = {};
 
-        for (i = 0; i < galleries.length; i++) {
-            if (galleries[i].ImageUrls == null || galleries[i].ImageUrls.length <= 0) {
-                continue;
-            }
+        for (var i = 0; i < imageList.length; i++) {
+            var img = document.createElement("img");
 
-            for (p = 0; p < galleries[i].ImageUrls.length; p++) {
-                var resultCollection = [];
-                var galleryIndex = i;
-                var img = document.createElement("img");
-                img.addEventListener('load', function (arg) {
-                    mLogService.info("image loaded");
-                    var options = resize(arg.target);
-                    var thumbData = createThumb(options, arg.target);
-                    resultCollection.push({ id: p, data: thumbData });
-                    callback.apply(mySelf, [galleryIndex, resultCollection]);
-                }, false);
+            // tag the img tag with a unique ID then associate the gallery with the img tag keyed by the 
+            // img tag's unique ID. This way, given the img tag we can find the right gallery to store the
+            // thumbnail on when the async computation is competed
+            img.id = "_tempilist" + i;
+            imageTags[img.id] = imageList[i];
 
-                img.src = galleries[i].ImageUrls[p];
-            }
+            img.addEventListener('load', function(arg) {
+                console.log("image was loaded: " + arg.target.src);
+                console.log("image tag with id was processed " + arg.target.id);
+
+                // compute the thumbnail...
+                var gallery = imageTags[arg.target.id].gallery;
+                var options = resize(arg.target);
+                var thumbData = createThumb(options, arg.target);
+
+                // ...and store it on the gallery
+                gallery.Thumbnails.push({
+                    orginalUrl: arg.target.src,
+                    thumbnail: thumbData
+                });
+                console.log("gallery now has this many thumbnails: " + gallery.Thumbnails.length);
+
+                // invoke completed callback, which will decide if all images are processed.
+                completedCallback();
+            }, false);
+
+            console.log("will load image: " + imageList[i].imageUrl);
+            img.src = imageList[i].imageUrl;
         }
-    };
+    }
 
     // helpers borrowed from dropzone
     var resize = function (img) {
@@ -218,7 +225,7 @@ InTheFrontRow.Management.ManagementController = (function(mySelf) {
     };
 
     return mySelf;
-})(InTheFrontRow.Management.ManagementController || {});
+})();
 
 
 

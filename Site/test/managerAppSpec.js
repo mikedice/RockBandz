@@ -1,9 +1,9 @@
-﻿// http://plnkr.co/edit/zdqy6yCYrv2sDhzYV3az?p=preview
+﻿// Based on plunker
+// http://plnkr.co/edit/zdqy6yCYrv2sDhzYV3az?p=preview
 
-
-// Testing of the ManagerApp controller
-describe('managerApp function', function () {
-
+describe('test my controller', function () {
+    // variables to use in test cases 
+    var $httpBackend, $rootScope, createController;
     // Fake response to http GET /api/gallery
     var fakeGalleryResponses = [
         {
@@ -24,10 +24,6 @@ describe('managerApp function', function () {
         }
     ];
 
-    // variables to use in test cases 
-    var $httpBackend, $rootScope, createController, serviceCallback;
-
-    // initialize the angular module for test cases
     beforeEach(module('ManagerApp'));
 
     // initialization of angular $httpBackend service and the 'Management' 
@@ -53,36 +49,31 @@ describe('managerApp function', function () {
         };
     }));
 
-    // Test cases
-    it('should initialize static strings', function () {
-        var controller = createController();
-        expect($rootScope.thumb).toEqual('fudge');
-    });
-
-    it('should make a GET request to /api/gallery to fetch all galleries', inject(function () {
+    it('should request all galleries and compute their thumbnails', function (done) {
         $httpBackend.expectGET('/api/gallery');
-        var controller = createController();
-        $httpBackend.flush();
-    }));
 
-    var theSpec = it('should request all galleries and compute their thumbnails', function (done) {
-
-        $httpBackend.expectGET('/api/gallery');
+        // Test that the HTTP request completed and that the async processing of the async data
+        // has also completed
         $rootScope.$watch('galleryList', function (newVal, oldVal) {
+            console.log("watcher was notified. ImageLoaded:" + $rootScope.galleryList);
             if (typeof $rootScope.galleryList != 'undefined' &&
-                typeof $rootScope.galleryList.length != 'undefined' &&
+                $rootScope.galleryList !== null &&
+                $rootScope.galleryList.length !== 'undefined' &&
                 $rootScope.galleryList.length == 2) {
-                theSpec.expect(true).toEqual(true);
+
+                expect($rootScope.galleryList[0].ImageUrls.length).toEqual(2);
+                expect($rootScope.galleryList[0].Thumbnails.length).toEqual(2);
+                expect($rootScope.galleryList[1].ImageUrls.length).toEqual(1);
+                expect($rootScope.galleryList[1].Thumbnails.length).toEqual(1);
+
                 done(); // tell jasmine async work is done
             }
+
         });
 
         var mController = createController();
         $httpBackend.flush();
     });
-
-
-
 });
 
 
