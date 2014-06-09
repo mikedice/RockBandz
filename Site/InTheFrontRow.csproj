@@ -158,6 +158,7 @@
     <Content Include="img\video-play.svg" />
     <Content Include="Index.html" />
     <Content Include="Index.old.html" />
+    <Content Include="js\angular-file-upload.js" />
     <Content Include="js\angular.js" />
     <Content Include="js\angular-mocks.js" />
     <Content Include="js\blueimp-gallery-fullscreen.js" />
@@ -175,7 +176,9 @@
     <Content Include="js\jquery.blueimp-gallery.min.js" />
     <Content Include="js\managecontroller.js" />
     <Content Include="js\managemodule.js" />
-    <Content Include="js\newGalleryApp.js" />
+    <Content Include="js\newgallerycontroller.js" />
+    <Content Include="js\newgallerymodule.js" />
+    <Content Include="js\thumbnailsSvc.js" />
     <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
     <Content Include="Manage.html" />
     <Content Include="NewGallery.html" />
@@ -417,7 +420,9 @@
     <Content Include="css\BootstrapManageThemes\bootstrap.css.map">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <None Include="in-the-frontrow - FTP %282%29.pubxml" />
     <None Include="in-the-frontrow - FTP.pubxml" />
+    <None Include="in-the-frontrow - Web Deploy %282%29.pubxml" />
     <None Include="in-the-frontrow - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>

@@ -87,10 +87,8 @@ namespace InTheFrontRow.Controllers
             var provider = new MultipartFormDataStreamProvider(galleryFolder);
 
             Trace.TraceInformation("Before async on thread {0}", Thread.CurrentThread.ManagedThreadId);
-            
             // Read the form data and return an async task.
             await Request.Content.ReadAsMultipartAsync(provider);
-
             Trace.TraceInformation("after async on thread {0}", Thread.CurrentThread.ManagedThreadId);
 
             // This illustrates how to get the file names.

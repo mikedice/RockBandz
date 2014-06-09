@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/BootstrapManageThemes/bootstrap.css">
     <link rel="stylesheet" href="css/BootstrapManageThemes/manage.css">
-    <link rel="stylesheet" href="css/Dropzone/dropzone.css">
 </head>
 <body class="manage-body">
     <div class="container" ng-controller="NewGalleryController">
@@ -28,13 +27,14 @@
                 <div id="uploadWaitSpinner" ng-show="!readyForUpload">
                     <p>Preparing for upload</p>
                 </div>
-                <div id="dropzone" ng-show="readyForUpload">
-                    <form style="min-height: 360px; background-color:azure"
-                          action="api/gallery/12345"
-                          class="dropzone dz-clickable"
-                          id="uploadFilesForm">
-                        <div class="dz-default dz-message"><span>drop files here to upload</span></div>
+                <div id="dropzone" ng-show="readyForUpload" >
+                    <form name="submitImagesForm" id="uploadFilesForm" >
+                        <input type="file" ng-file-select="onFileSelect($files)" multiple />
                     </form>
+                </div>
+
+                <div id="gallery-image-holder">
+                    <img ng-repeat="image in imageList" ng-src="{{image.Thumbnail}}" />
                 </div>
             </div>
         </div>
@@ -46,8 +46,11 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
-    <script src="js/dropzone.js"></script>
-    <script src="js/newGalleryApp.js"></script>
+    <script src="js/angular-file-upload.js"></script>
+    <script src="js/thumbnailsSvc.js"></script>
+    
+    <script src="js/newgallerycontroller.js"></script>
+    <script src="js/newgallerymodule.js"></script>
 </body>
 
 
