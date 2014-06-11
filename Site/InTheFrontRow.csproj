@@ -318,6 +318,7 @@
     <Content Include="test\test-images\DSC_7728.jpg" />
     <Content Include="test\test-images\DSC_7852.jpg" />
     <Content Include="test\test-images\DSC_7899.jpg" />
+    <Content Include="test\thumbnailSvcSpec.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
