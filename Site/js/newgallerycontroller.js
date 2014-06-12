@@ -13,7 +13,7 @@ InTheFrontRow.Management.NewGalleryController = (function (mySelf) {
     var mGalleryId = null;
     var mUploadUrl = null;
     var mImageList = {};
-    
+
     // The controller function
     mySelf.ControllerFunction = function (scope, httpSvc, logSvc, uploadSvc, thumbnailSvc) {
         // service dependencies
@@ -33,6 +33,30 @@ InTheFrontRow.Management.NewGalleryController = (function (mySelf) {
         mScope.galleryDescription = null;
         mScope.readyForUpload = false;
         mScope.imageList = null;
+
+        mScope.tinymceOptions = {
+            plugins: 'image link',
+            toolbar: ['bold italic underline strikethrough fontselect | alignleft aligncenter alignright alignjustify',
+            'image link hr'],
+            font_formats: "Andale Mono=andale mono,times;" +
+                "Arial=arial,helvetica,sans-serif;" +
+                "Arial Black=arial black,avant garde;" +
+                "Book Antiqua=book antiqua,palatino;" +
+                "Comic Sans MS=comic sans ms,sans-serif;" +
+                "Courier New=courier new,courier;" +
+                "Georgia=georgia,palatino;" +
+                "Helvetica=helvetica;" +
+                "Impact=impact,chicago;" +
+                "Symbol=symbol;" +
+                "Tahoma=tahoma,arial,helvetica,sans-serif;" +
+                "Terminal=terminal,monaco;" +
+                "Times New Roman=times new roman,times;" +
+                "Trebuchet MS=trebuchet ms,geneva;" +
+                "Verdana=verdana,geneva;" +
+                "Webdings=webdings;" +
+                "Wingdings=wingdings,zapf dingbats"
+
+        }
 
         // Before we allow an upload we create a gallery and get the new gallery's ID.
         httpSvc.post(mGalleryApiUrl).

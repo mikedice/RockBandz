@@ -180,6 +180,7 @@
     <Content Include="js\newgallerymodule.js" />
     <Content Include="js\thumbnailsSvc.js" />
     <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
+    <Content Include="js\ui-tinymce.js" />
     <Content Include="Manage.html" />
     <Content Include="NewGallery.html" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
