@@ -1,7 +1,4 @@
-﻿
-var InTheFrontRow = InTheFrontRow || {};
-InTheFrontRow.Management = InTheFrontRow.Management || {};
-InTheFrontRow.Management.ManagementController = (function (mySelf) {
+﻿(function (module) {
 
     // instance variables
     var mLogService;
@@ -11,24 +8,26 @@ InTheFrontRow.Management.ManagementController = (function (mySelf) {
     var mThumbnailService;
 
     // The controller function
-    mySelf.ControllerFunction = function (scope, httpService, windowService, logService, thumbnailService) {
+    module.controller('ManagementController', ['$scope', '$http', '$window', '$log', 'thumbnailSvc',
+        function ($scope, $http, $window, $log, thumbnailSvc) {
 
         // Initialize controller private variables
-        mScope = scope;
-        mLogService = logService;
-        mHttpService = httpService;
-        mWindowService = windowService;
-        mThumbnailService = thumbnailService;
+        mScope = $scope;
+        mLogService = $log;
+        mHttpService = $http;
+        mWindowService = $window;
+        mThumbnailService = thumbnailSvc;
 
         // Initialize angular scope variables
         mScope.thumb = "fudge";
         mScope.NewGallery = function () {
             mWindowService.location = "/newgallery.html";
         }
+        mScope.DeleteGallery = function (galleryId) { handleDeleteGallery(galleryId); }
 
         // async initialization of the controller
         initializeGalleries();
-    }
+    }]);
 
 // private helpers
     var initializeGalleries = function () {
@@ -104,10 +103,22 @@ InTheFrontRow.Management.ManagementController = (function (mySelf) {
             img.src = imageList[i].imageUrl;
         }
     }
+    var handleDeleteGallery = function (galleryid) {
 
+        for (i = 0; i<mScope.galleryList.length; i++)
+        {
+            if (mScope.galleryList[i].Metadata.Id == galleryid)
+            {
+                mHttpService.delete('/api/gallery/' + galleryid)
+                    .success(function (data) { })
+                    .error(function (data) { window.alert(data.error); })
 
-    return mySelf;
-})(InTheFrontRow.Management.ManagementController || {});
+                mScope.galleryList.splice(i, 1);
+            }
+            mScope.galleryList.REm
+        }
+    }
+})(angular.module('InTheFrontRowModule'));
 
 
 

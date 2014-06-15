@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="NewGalleryApp">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="InTheFrontRowModule">
 <head>
     <title>New Gallery</title>
     <meta charset="utf-8">
@@ -11,30 +11,37 @@
 <body class="manage-body">
     <div class="container" ng-controller="NewGalleryController">
         <div class="row" id="body-container">
-            <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="background-color:green">
+            <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
                 <form role="form">
-                    <button ng-click="SaveGallery()" class="btn btn-default">Save</button>
+                    <button ng-click="SaveGallery()" ng-disabled="!(galleryTitle != null && galleryTitle.length > 0)" class="btn btn-default">Save</button>
                     <button ng-click="CancelGallery()" class="btn btn-default">Cancel</button>
+                    <button ng-click="SaveAndClose()" ng-disabled="!(galleryTitle != null && galleryTitle.length > 0)" class="btn btn-default">Save and Close</button>
                     <div class="form-group">
                         <label for="galleryTitle">Gallery Title</label>
                         <input type="text" class="form-control" id="galleryTitle" placeholder="Enter Gallery Title" ng-model="galleryTitle">
                     </div>
                     <div class="form-group">
                         <label for="caption">Gallery Description</label>
-                        <textarea class="form-control" rows="4" ui-tinymce="tinymceOptions" id="galleryDescription" placeholder="Enter Description" ng-model="galleryDescription"></textarea>
+                        <textarea class="form-control" rows="4" id="galleryDescription" placeholder="Enter Description" ng-model="galleryDescription"></textarea>
                     </div>
                 </form>
                 <div id="uploadWaitSpinner" ng-show="!readyForUpload">
                     <p>Preparing for upload</p>
                 </div>
-                <div id="dropzone" ng-show="readyForUpload" >
-                    <form name="submitImagesForm" id="uploadFilesForm" >
+                <div id="dropzone" ng-show="readyForUpload">
+                    <form  name="submitImagesForm" id="uploadFilesForm">
+                          <label for="caption">Select images to include in the gallery</label>
                         <input type="file" ng-file-select="onFileSelect($files)" multiple />
-                    </form>
+                        <button  ng-click="RemoveAllImages()" ng-disabled="GetRemoveAllDisabled()" class="btn btn-default">Remove All</button>
+                                            </form>
                 </div>
 
                 <div id="gallery-image-holder">
-                    <img ng-repeat="image in imageList" ng-src="{{image.Thumbnail}}" />
+                    <label ng-show="imageList == null || imageList.length == 0" id="image-selection-default-label">no images have been selected</label>
+                    <div class="thumbnail-holder" id="{{image.name}}" ng-repeat="image in imageList">
+                        <span title="remove image" id="thumbnail-remove-link" ng-click="RemoveOneImage(image.name)">X</span>
+                        <img ng-src="{{image.Thumbnail}}" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,14 +52,12 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
-    <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
     <script src="js/angular-file-upload.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="js/module.js"></script>
     <script src="js/thumbnailsSvc.js"></script>
-    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-    <script src="js/ui-tinymce.js"></script>
-
+    <script src="js/managecontroller.js"></script>
     <script src="js/newgallerycontroller.js"></script>
-    <script src="js/newgallerymodule.js"></script>
 </body>
 
 

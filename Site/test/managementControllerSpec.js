@@ -1,7 +1,7 @@
 ﻿// Based on plunker
 // http://plnkr.co/edit/zdqy6yCYrv2sDhzYV3az?p=preview
 
-describe('test my controller', function () {
+describe('test the ManagementController controller', function () {
     // variables to use in test cases 
     var $httpBackend, $rootScope, createController;
     // Fake response to http GET /api/gallery
@@ -24,7 +24,7 @@ describe('test my controller', function () {
         }
     ];
 
-    beforeEach(module('ManagerApp'));
+    beforeEach(module('InTheFrontRowModule'));
 
     // initialization of angular $httpBackend service and the 'Management' 
     // controller before each test case
@@ -43,7 +43,7 @@ describe('test my controller', function () {
 
         // function used in test cases to get a controller object
         createController = function () {
-            var cont = $controller('Management', {
+            var cont = $controller('ManagementController', {
                 '$scope': $rootScope
             });
         };
