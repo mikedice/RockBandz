@@ -29,11 +29,11 @@
                     <p>Preparing for upload</p>
                 </div>
                 <div id="dropzone" ng-show="readyForUpload">
-                    <form  name="submitImagesForm" id="uploadFilesForm">
-                          <label for="caption">Select images to include in the gallery</label>
+                    <form name="submitImagesForm" id="uploadFilesForm">
+                        <label for="caption">Select images to include in the gallery</label>
                         <input type="file" ng-file-select="onFileSelect($files)" multiple />
-                        <button  ng-click="RemoveAllImages()" ng-disabled="GetRemoveAllDisabled()" class="btn btn-default">Remove All</button>
-                                            </form>
+                        <button ng-click="RemoveAllImages()" ng-disabled="GetRemoveAllDisabled()" class="btn btn-default">Remove All</button>
+                    </form>
                 </div>
 
                 <div id="gallery-image-holder">
@@ -54,8 +54,9 @@
     <script src="js/angular.js"></script>
     <script src="js/angular-file-upload.js"></script>
     <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
-    <script src="js/module.js"></script>
     <script src="js/thumbnailsSvc.js"></script>
+    <script src="js/filereaderSvc.js"></script>
+    <script src="js/module.js"></script>
     <script src="js/managecontroller.js"></script>
     <script src="js/newgallerycontroller.js"></script>
 </body>

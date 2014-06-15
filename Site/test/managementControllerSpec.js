@@ -4,6 +4,7 @@
 describe('test the ManagementController controller', function () {
     // variables to use in test cases 
     var $httpBackend, $rootScope, createController;
+
     // Fake response to http GET /api/gallery
     var fakeGalleryResponses = [
         {

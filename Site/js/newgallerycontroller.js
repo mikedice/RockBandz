@@ -13,14 +13,15 @@
     var mImageList = {};
 
     // The controller function
-    module.controller('NewGalleryController', ['$scope', '$http', '$log', '$upload', 'thumbnailSvc',
-        function ($scope, $http, $log, $upload, thumbnailSvc) {
+    module.controller('NewGalleryController', ['$scope', '$http', '$log', '$upload', 'thumbnailSvc', 'fileReaderSvc',
+        function ($scope, $http, $log, $upload, thumbnailSvc, fileReaderSvc) {
             // service dependencies
             mScope = $scope;
             mHttpSvc = $http;
             mLogSvc = $log;
             mUploadSvc = $upload;
             mTnailSvc = thumbnailSvc;
+            mFileSvc = fileReaderSvc;
 
             // Initialize scope handlers
             mScope.onFileSelect = function (files) { handleFileSelect(files); }
@@ -45,7 +46,8 @@
                     mGalleryId = data.GalleryId;
                     mUploadUrl = mGalleryApiRoot + mGalleryId + "/image";
 
-                    mScope.readyForUpload = true;
+                    $scope.readyForUpload = true;
+
                 }).error(function (data) {
                     window.alert(data.error);
                 })
@@ -153,44 +155,43 @@
             return;
         }
 
-        var reader = new FileReader();
-        reader.onload = (function (theFile) {
-            return function (e) {
-                mLogSvc.log("createThumbnail file has been read");
-                var dataUrl = e.target.result;
+        mFileSvc.readDataUrl(file).then(function(dataUrl){
+            mLogSvc.log("createThumbnail file has been read");
+            var dataUrl = dataUrl;
 
-                // Image wasn't previously loaded add result to mImageList 'dictionary'
-                mImageList[_fileName] = {
-                    dataUrl: dataUrl,
-                    name: theFile.name,
-                    type: theFile.type
-                };
-
-                var img = document.createElement("img");
-                img.addEventListener('load', function (arg) {
-                    console.log("createThumbnail image was loaded");
-
-                    // compute the thumbnail...
-                    var options = mTnailSvc.resize(arg.target);
-                    var thumbData = mTnailSvc.createThumb(options, arg.target);
-
-                    mImageList[_fileName].Thumbnail = thumbData;
-                    console.log("createThumbnail stored thumbnail for image: " + theFile.name);
-                    mScope.$apply(function () {
-                        mScope.imageList = mImageList;
-                    });
-                }, false);
-                console.log("createThumbnail will load image: " + theFile.name);
-                img.src = dataUrl;
-
+            // Image wasn't previously loaded add result to mImageList 'dictionary'
+            mImageList[_fileName] = {
+                dataUrl: dataUrl,
+                name: file.name,
+                type: file.type
             };
-        })(file);
-        reader.readAsDataURL(file);
+
+            var img = document.createElement("img");
+            img.addEventListener('load', function (arg) {
+                console.log("createThumbnail image was loaded");
+
+                // compute the thumbnail...
+                var options = mTnailSvc.resize(arg.target);
+                var thumbData = mTnailSvc.createThumb(options, arg.target);
+
+                mImageList[_fileName].Thumbnail = thumbData;
+                console.log("createThumbnail stored thumbnail for image: " + file.name);
+                mScope.$apply(function () {
+                    mScope.imageList = mImageList;
+                });
+            }, false);
+            console.log("createThumbnail will load image: " + file.name);
+            img.src = dataUrl;
+        }, function (e) {
+            mLogSvc.log(" filereaderSvc failed to read file " + file.name)
+        });
     }
 
     var resetForm = function () {
         var frm = angular.element(mInputFormSelector)[0];
-        frm.reset();
+        if (frm != 'undefined' && frm != null) {
+            frm.reset();
+        }
         mLogSvc.log("uploadFilesForm has been reset");
     }
 

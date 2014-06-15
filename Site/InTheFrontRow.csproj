@@ -172,6 +172,7 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\demo.js" />
+    <Content Include="js\filereaderSvc.js" />
     <Content Include="js\jquery.blueimp-gallery.js" />
     <Content Include="js\jquery.blueimp-gallery.min.js" />
     <Content Include="js\managecontroller.js" />
@@ -314,6 +315,7 @@
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1151028_296256527181358_549087956_n.jpg" />
     <Content Include="SiteContent\Galleries\Random_concert_pictures\tnail\1208830_296256520514692_767366623_n.jpg" />
     <Content Include="test\managementControllerSpec.js" />
+    <Content Include="test\newGalleryControllerSpec.js" />
     <Content Include="test\SpecRunner.html" />
     <Content Include="test\test-images\DSC_7728.jpg" />
     <Content Include="test\test-images\DSC_7852.jpg" />
