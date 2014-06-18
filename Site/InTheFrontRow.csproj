@@ -122,6 +122,7 @@
     <Compile Include="Models\Gallery\CreateGalleryResponse.cs" />
     <Compile Include="Models\Gallery\Gallery.cs" />
     <Compile Include="Models\Gallery\GalleryMetadata.cs" />
+    <Compile Include="Modules\BasicAuth.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\blueimp-gallery-indicator.css" />
@@ -180,9 +181,9 @@
     <Content Include="js\newgallerycontroller.js" />
     <Content Include="js\thumbnailsSvc.js" />
     <Content Include="js\ui-bootstrap-tpls-0.11.0.js" />
-    <Content Include="js\ui-tinymce.js" />
-    <Content Include="Manage.html" />
-    <Content Include="NewGallery.html" />
+    <Content Include="Mgmt\Manage.html" />
+    <Content Include="Mgmt\NewGallery.html" />
+    <Content Include="Mgmt\unauthorized.html" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7682.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7684.jpg" />
@@ -411,9 +412,6 @@
     <Content Include="css\BootstrapManageThemes\manage.css.map">
       <DependentUpon>manage.css</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="js\dropzone.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\BootstrapManageThemes\bootstrap.css.map">

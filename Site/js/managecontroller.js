@@ -21,7 +21,7 @@
         // Initialize angular scope variables
         mScope.thumb = "fudge";
         mScope.NewGallery = function () {
-            mWindowService.location = "/newgallery.html";
+            mWindowService.location = "/mgmt/newgallery.html";
         }
         mScope.DeleteGallery = function (galleryId) { handleDeleteGallery(galleryId); }
 

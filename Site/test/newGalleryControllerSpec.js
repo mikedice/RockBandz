@@ -16,7 +16,7 @@
         }
     ];
 
-    var fakePutUrl = 'api/gallery/302FF471-0FF5-48D1-A476-A2DC6526DFB8/image';
+    var fakePutUrl = '/api/gallery/302FF471-0FF5-48D1-A476-A2DC6526DFB8/image';
 
     // Mock the angular-file-upload Service
     var FakeUploadService = function (httpSvc) {
@@ -64,7 +64,7 @@
         $httpBackend = $injector.get('$httpBackend');
 
         // backend definition common for all tests
-        $httpBackend.when('POST', 'api/gallery').respond(fakeCreateGalleryResponse);
+        $httpBackend.when('POST', '/api/gallery').respond(fakeCreateGalleryResponse);
         $httpBackend.when('PUT', fakePutUrl).respond(200, '');
 
         // Get hold of a scope (i.e. the root scope), needed to create our controller
@@ -93,7 +93,7 @@
     }));
 
     it("should retrieve a new gallery ID during initializataion", function (done) {
-        $httpBackend.expectPOST('api/gallery');
+        $httpBackend.expectPOST('/api/gallery');
 
         $rootScope.$watch('readyForUpload', function (newVal, oldVal) {
             if ($rootScope.readyForUpload != 'undefined' &&

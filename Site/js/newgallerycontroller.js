@@ -6,8 +6,8 @@
     var mUploadSvc;
     var mTnailSvc;
     var mInputFormSelector = "#uploadFilesForm";
-    var mGalleryApiUrl = "api/gallery";
-    var mGalleryApiRoot = "api/gallery/";
+    var mGalleryApiUrl = "/api/gallery";
+    var mGalleryApiRoot = "/api/gallery/";
     var mGalleryId = null;
     var mUploadUrl = null;
     var mImageList = {};
@@ -126,7 +126,7 @@
 
     var handleSaveAndClose = function () {
         handleSaveGallery();
-        window.location = "/manage.html";
+        window.location = "/mgmt/manage.html";
     }
 
     // handleCancelGallery deletes the gallery because user didn't want to save it.
@@ -136,7 +136,7 @@
                                 .success(function (data) { })
                                 .error(function (data) { window.alert(data.error); })
         }
-        window.location = "/manage.html";
+        window.location = "/mgmt/manage.html";
     }
     // after upoads we reset the upload form to clear the input control
     var afterUpload = function (expectedCount, actualCount, config, succeeded) {
