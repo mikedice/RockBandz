@@ -22,6 +22,7 @@
             mUploadSvc = $upload;
             mTnailSvc = thumbnailSvc;
             mFileSvc = fileReaderSvc;
+            mScope.ProcessingErrors = [];
 
             // Initialize scope handlers
             mScope.onFileSelect = function (files) { handleFileSelect(files); }
@@ -38,6 +39,7 @@
             mScope.readyForUpload = false;
             mScope.imageList = null;
             mScope.newGalleryVisible = false;
+            mScope.thumbnailsLoaded = 0;
 
             // Before we allow an upload we create a gallery and get the new gallery's ID.
             mHttpSvc.post(mGalleryApiUrl).
@@ -56,7 +58,11 @@
     // handler for files getting selected in the upload form
     var handleFileSelect = function (files) {
         var expectedCount = files.length;
+        mScope.UploadProgress = ' ' + expectedCount + ' files to upload';
+
         var actualCount = 0;
+        var succeededCount = 0;
+        var failedCount = 0;
 
         for (var i = 0; i < files.length; i++) {
             mLogSvc.log("uploading file: " + files[i].name);
@@ -71,18 +77,28 @@
                 // file is uploaded successfully
                 mLogSvc.log(config.file.name + " uploaded successfully");
                 afterUpload(expectedCount, ++actualCount, config, true);
+                registerUploadProgress(expectedCount, ++succeededCount, failedCount);
             }).error(function (data, status, headers, config) {
-                mLogSvc.log(config.file.name + " upload error " + status);
+                var msg = config.file.name + " upload error " + status;
+                mLogSvc.log(msg);
+                mScope.$apply(function () { mScope.ProcessingErrors.push({ msg: msg }); });
                 afterUpload(expectedCount, ++actualCount, config, false);
+                registerUploadProgress(expectedCount, actualCount, ++failedCount);
             });
         }
     }
 
-    var handleRemoveOneImage = function(fileName)
-    {
+    var registerUploadProgress = function(expected, succeeded, failed){
+
+        mScope.UploadProgress = 'Uploads expected: ' + expected
+                                    + ' succeeded: ' + succeeded
+                                    + ' failed: ' + failed;
+
+
+    }
+    var handleRemoveOneImage = function (fileName) {
         if (mScope.imageList[fileName] != 'undefined' &&
-            mScope.imageList[fileName] != null)
-        {
+            mScope.imageList[fileName] != null) {
             // delete from local list of images
             delete mScope.imageList[fileName];
 
@@ -90,23 +106,24 @@
             mHttpSvc.delete(mGalleryApiRoot + mGalleryId + '?file=' + fileName)
                     .success(function (data) { })
                     .error(function (data) { window.alert(data.error); })
+            mScope.thumbnailsLoaded--;
         }
     }
-    
+
     var handleRemoveAll = function () {
         var keys = Object.keys(mScope.imageList);
-        for (i=0; i<keys.length; i++)
-        {
+        for (i = 0; i < keys.length; i++) {
             delete mScope.imageList[keys[i]];
 
             // send a delete to the server
             mHttpSvc.delete(mGalleryApiRoot + mGalleryId + '?file=' + keys[i])
                     .success(function (data) { })
                     .error(function (data) { window.alert(data.error); })
-
+            mScope.thumbnailsLoaded = 0;
+            mScope.UploadProgress = ' ';
         }
     }
-    
+
 
     // handleSaveGallery 'commits' a new gallery. If this isn't called the new gallery will
     // not be saved.
@@ -155,7 +172,7 @@
             return;
         }
 
-        mFileSvc.readDataUrl(file).then(function(dataUrl){
+        mFileSvc.readDataUrl(file).then(function (dataUrl) {
             mLogSvc.log("createThumbnail file has been read");
             var dataUrl = dataUrl;
 
@@ -178,10 +195,23 @@
                 console.log("createThumbnail stored thumbnail for image: " + file.name);
                 mScope.$apply(function () {
                     mScope.imageList = mImageList;
+                    mScope.thumbnailsLoaded++;
                 });
             }, false);
+            img.addEventListener('error', function (arg) {
+                mScope.$apply(function () {
+                    mScope.ProcessingErrors.Push({ msg: 'error processing image ' + arg.target.src });
+                });
+            });
             console.log("createThumbnail will load image: " + file.name);
-            img.src = dataUrl;
+            try {
+                img.src = dataUrl;
+            }
+            catch (error) {
+                mScope.$apply(function () {
+                    mScope.ProcessingErrors.Push({ msg: 'error loading image data Url for image ' + _fileName });
+                });
+            }
         }, function (e) {
             mLogSvc.log(" filereaderSvc failed to read file " + file.name)
         });

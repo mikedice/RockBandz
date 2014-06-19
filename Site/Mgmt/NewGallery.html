@@ -33,6 +33,8 @@
                         <label for="caption">Select images to include in the gallery</label>
                         <input type="file" ng-file-select="onFileSelect($files)" multiple />
                         <button ng-click="RemoveAllImages()" ng-disabled="GetRemoveAllDisabled()" class="btn btn-default">Remove All</button>
+                        <p>{{UploadProgress}}</p>
+                        <p>Thumbnails loaded: {{thumbnailsLoaded}}</p>
                     </form>
                 </div>
 
@@ -42,6 +44,11 @@
                         <span title="remove image" id="thumbnail-remove-link" ng-click="RemoveOneImage(image.name)">X</span>
                         <img ng-src="{{image.Thumbnail}}" />
                     </div>
+                </div>
+                <div id="processingErrors">
+                    <ul>
+                        <li ng-repeat="errorMsg in ProcessingErrors">{{errorMsg.msg}}</li>
+                    </ul>
                 </div>
             </div>
         </div>

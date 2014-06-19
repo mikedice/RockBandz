@@ -15,6 +15,11 @@
                 <button class="btn btn-default" ng-click="NewGallery()">New Gallery</button>
                 <!-- This list of existing galleries -->
                 <div>
+                    <p>{{ProcessingGalleriesCaption}}</p>
+                    <p>Images successfully processed: {{ImagesProcessedSuccess}}</p>
+                    <p>Images failed to process: {{ImagesProcessedFailed}}</p>
+                </div>
+                <div>
                     <div class="gallery-view-holder" ng-repeat="gallery in galleryList">
                         <button class="btn btn-default" ng-click="DeleteGallery(gallery.Metadata.Id)">Delete this gallery</button>
                         <p>{{gallery.Metadata.Title}}</p>
@@ -26,6 +31,11 @@
                         </div>
                     </div>
                 </div>
+                <div id="processingErrors">
+                    <ul>
+                        <li ng-repeat="error in ProcessingErrors">{{error.msg}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -35,13 +45,12 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/angular.js"></script>
     <script src="../js/angular-file-upload.js"></script>
-    <script src="../js/ui-tinymce.js"></script>
     <script src="../js/ui-bootstrap-tpls-0.11.0.js"></script>
     <script src="../js/module.js"></script>
     <script src="../js/thumbnailsSvc.js"></script>
     <script src="../js/filereaderSvc.js"></script>
     <script src="../js/managecontroller.js"></script>
     <script src="../js/newgallerycontroller.js"></script>
-    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 </body>
 </html>
+

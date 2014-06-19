@@ -135,7 +135,9 @@
     <Content Include="css\BootstrapManageThemes\manage.css">
       <DependentUpon>manage.less</DependentUpon>
     </Content>
-    <Content Include="css\BootstrapThemes\bootstrap.css" />
+    <Content Include="css\BootstrapThemes\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
     <Content Include="css\BootstrapThemes\variables.css" />
     <Content Include="css\demo.css" />
     <Content Include="css\site.css">
@@ -174,6 +176,7 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\demo.js" />
     <Content Include="js\filereaderSvc.js" />
+    <Content Include="js\HomeController.js" />
     <Content Include="js\jquery.blueimp-gallery.js" />
     <Content Include="js\jquery.blueimp-gallery.min.js" />
     <Content Include="js\managecontroller.js" />
@@ -385,7 +388,9 @@
     <Content Include="css\Bootstrap\wells.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\BootstrapThemes\bootstrap.css.map" />
+    <Content Include="css\BootstrapThemes\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="css\BootstrapThemes\bootstrap.less" />
     <Content Include="css\BootstrapThemes\dropdowns.less" />
     <Content Include="css\BootstrapThemes\navbar.less" />

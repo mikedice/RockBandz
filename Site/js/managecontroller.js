@@ -11,58 +11,83 @@
     module.controller('ManagementController', ['$scope', '$http', '$window', '$log', 'thumbnailSvc',
         function ($scope, $http, $window, $log, thumbnailSvc) {
 
-        // Initialize controller private variables
-        mScope = $scope;
-        mLogService = $log;
-        mHttpService = $http;
-        mWindowService = $window;
-        mThumbnailService = thumbnailSvc;
+            // Initialize controller private variables
+            mScope = $scope;
+            mLogService = $log;
+            mHttpService = $http;
+            mWindowService = $window;
+            mThumbnailService = thumbnailSvc;
 
-        // Initialize angular scope variables
-        mScope.thumb = "fudge";
-        mScope.NewGallery = function () {
-            mWindowService.location = "/mgmt/newgallery.html";
-        }
-        mScope.DeleteGallery = function (galleryId) { handleDeleteGallery(galleryId); }
+            var retrievingStart = "Retrieving all galleries";
+            var processingStart = "Processing all images in";
+            var processingDone = "Done processing all images";
 
-        // async initialization of the controller
-        initializeGalleries();
-    }]);
+            // Initialize angular scope variables
+            mScope.ProcessingGalleriesCaption = retrievingStart;
+            mScope.TotalImagesToProcess = 0;
+            mScope.ImagesProcessedSuccess = 0;
+            mScope.ImagesProcessedFailed = 0;
+            mScope.ProcessingErrors = [];
 
-// private helpers
+            mScope.NewGallery = function () {
+                mWindowService.location = "/mgmt/newgallery.html";
+            }
+            mScope.DeleteGallery = function (galleryId) { handleDeleteGallery(galleryId); }
+
+            // async initialization of the controller
+            initializeGalleries();
+        }]);
+
+    // private helpers
     var initializeGalleries = function () {
         var imagesToProcess = [];
 
-        mHttpService.get("/api/gallery").success(function (galleries) {
-            for (var i = 0; i < galleries.length; i++) {
-                // Add a Thumbnails property to hold the thumbnails we compute
-                galleries[i].Thumbnails = [];
+        mHttpService.get("/api/gallery")
+            .success(function (galleries) {
+                for (var i = 0; i < galleries.length; i++) {
+                    // Add a Thumbnails property to hold the thumbnails we compute
+                    galleries[i].Thumbnails = [];
 
-                for (var p = 0; p < galleries[i].ImageUrls.length; p++) {
-                    imagesToProcess.push({
-                        imageUrl: galleries[i].ImageUrls[p],
-                        gallery: galleries[i]
-                    });
+                    for (var p = 0; p < galleries[i].ImageUrls.length; p++) {
+                        imagesToProcess.push({
+                            imageUrl: galleries[i].ImageUrls[p],
+                            gallery: galleries[i]
+                        });
+                    }
                 }
-            }
 
-            // Made a list of all the images to process now kick off that processing.
-            // The processing of the images is async work. We get called back each time an image
-            // is processed. We need to keep track of how many images were processed so that
-            // when the last one is processed we can apply the gallery list to the scope.
-            var totalImages = imagesToProcess.length;
-            var totalProcessed = 0;
+                
+                    mScope.ProcessingGalleriesCaption = "Processing " + imagesToProcess.length +
+                            " images in " + galleries.length + " galleries";
+                
+                // Made a list of all the images to process now kick off that processing.
+                // The processing of the images is async work. We get called back each time an image
+                // is processed. We need to keep track of how many images were processed so that
+                // when the last one is processed we can apply the gallery list to the scope.
+                var totalImages = imagesToProcess.length;
+                var totalProcessed = 0;
 
-            processImages(imagesToProcess, function() {
-                totalProcessed++;
-                if (totalProcessed >= totalImages) {
-                    console.log("inside callback, all images processed");
-                    mScope.$apply(function() {
-                        mScope.galleryList = galleries;
+                processImages(imagesToProcess, function (succeeded, message) {
+                    totalProcessed++;
+
+                    mScope.$apply(function () {
+                        if (succeeded) {
+                            mScope.ImagesProcessedSuccess++;
+                        } else {
+                            mScope.ImagesProcessedFailed++;
+                            mScope.ProcessingErrors.push({ msg: message });
+                        }
+
                     });
-                }
+
+                    if (totalProcessed >= totalImages) {
+                        console.log("inside callback, all images processed");
+                        mScope.$apply(function () {
+                            mScope.galleryList = galleries;
+                        });
+                    }
+                });
             });
-        });
 
     }
 
@@ -79,7 +104,7 @@
             img.id = "_tempilist" + i;
             imageTags[img.id] = imageList[i];
 
-            img.addEventListener('load', function(arg) {
+            img.addEventListener('load', function (arg) {
                 console.log("image was loaded: " + arg.target.src);
                 console.log("image tag with id was processed " + arg.target.id);
 
@@ -96,19 +121,25 @@
                 console.log("gallery now has this many thumbnails: " + gallery.Thumbnails.length);
 
                 // invoke completed callback, which will decide if all images are processed.
-                completedCallback();
+                completedCallback(true);
             }, false);
-
+            img.addEventListener('error', function (arg) {
+                console.log("error loading image: " + arg.target.src);
+                completedCallback(false, "error loading image: " + arg.target.src);
+            });
             console.log("will load image: " + imageList[i].imageUrl);
-            img.src = imageList[i].imageUrl;
+            try {
+                img.src = imageList[i].imageUrl;
+            }
+            catch (error) {
+                completedCallback(false, 'error loading ' + imageList[i].imageUrl);
+            }
         }
     }
     var handleDeleteGallery = function (galleryid) {
 
-        for (i = 0; i<mScope.galleryList.length; i++)
-        {
-            if (mScope.galleryList[i].Metadata.Id == galleryid)
-            {
+        for (i = 0; i < mScope.galleryList.length; i++) {
+            if (mScope.galleryList[i].Metadata.Id == galleryid) {
                 mHttpService.delete('/api/gallery/' + galleryid)
                     .success(function (data) { })
                     .error(function (data) { window.alert(data.error); })

@@ -76,7 +76,7 @@ namespace InTheFrontRow.Modules
 
         private static void OnApplicationAuthenticateRequest(object sender, EventArgs e)
         {
-            if (!UrlHasSegment("Mgmt") && !UrlHasSegment("api"))
+            if (!UrlHasSegment("Mgmt") /*&& !UrlHasSegment("api")*/)
             {
                 Trace.WriteLine("[NoAuthN] " + HttpContext.Current.Request.Url);
                 return;
