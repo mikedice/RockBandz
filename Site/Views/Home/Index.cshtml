@@ -1,0 +1,66 @@
+﻿@model InTheFrontRow.Models.Views.Home.HomeModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<script type="text/javascript" src="//use.typekit.net/ras8uai.js"></script>
+<script type="text/javascript">try { Typekit.load(); } catch (e) { }</script>
+
+<div class="container">
+        @{int count = 0;}
+        @foreach (var gallery in Model.Galleries)
+        {
+            <div class="row" id="body-container">
+                <div class="col-md-3">
+                    <h1>@gallery.Metadata.Title</h1>
+                    <h3>@gallery.Metadata.Description</h3>
+                </div>
+                <div class="col-md-8">
+                    <div id="gallery-holder">
+                        <div id="blueimp-gallery" class="blueimp-gallery">
+                            <div class="slides"></div>
+                            <h3 class="title"></h3>
+                            <a class="prev">‹</a>
+                            <a class="next">›</a>
+                            <a class="close">×</a>
+                            <a class="play-pause"></a>
+                            <ol class="indicator"></ol>
+                        </div>
+                    </div>
+                    @{var linkId = "links_" + count;}
+                    <div id="@linkId">
+
+                        @foreach (var image in gallery.ImageUrls)
+                        {
+                            <a href='@image' onclick="InitBlueImp('@linkId')">
+                                <img class="img_thumbnail" src='@image' alt='gallery image'>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+                        count++;
+        }
+    
+    <script type="text/javascript">
+        var InitBlueImp = function (linkId) {
+            var l = document.getElementById(linkId);
+            document.getElementById(linkId).onclick = function (event) {
+                event = event || window.event;
+                var target = event.target || event.srcElement,
+                    link = target.src ? target.parentNode : target,
+                    options = { index: link, event: event },
+                    links = this.getElementsByTagName('a');
+                console.log('will call blueimp.Gallery')
+                blueimp.Gallery(links, options);
+            };
+        }
+    </script>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" id="footer">
+            <p>Copyright 2014 <a href="cuddles7@hotmail.com">Hailey Dice</a></p>
+            <a href="https://www.facebook.com/hailey.dice"><img src="/img/facebook.png" /></a>
+            <a href="https://twitter.com/hailey_lp"><img src="/img/twitter.png" /></a>
+        </div>
+    </div>
+</div>

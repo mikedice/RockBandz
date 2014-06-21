@@ -113,15 +113,20 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GalleryHelpers.cs" />
     <Compile Include="Models\Gallery\CreateGalleryResponse.cs" />
     <Compile Include="Models\Gallery\Gallery.cs" />
     <Compile Include="Models\Gallery\GalleryMetadata.cs" />
+    <Compile Include="Models\Views\Home\HomeModel.cs" />
     <Compile Include="Modules\BasicAuth.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +164,7 @@
     <Content Include="img\twitter.png" />
     <Content Include="img\video-play.png" />
     <Content Include="img\video-play.svg" />
-    <Content Include="Index.html" />
+    <None Include="Index.html.old" />
     <Content Include="Index.old.html" />
     <Content Include="js\angular-file-upload.js" />
     <Content Include="js\angular.js" />
@@ -177,6 +182,7 @@
     <Content Include="js\demo.js" />
     <Content Include="js\filereaderSvc.js" />
     <Content Include="js\HomeController.js" />
+    <Content Include="js\jquery-1.10.2.min.js" />
     <Content Include="js\jquery.blueimp-gallery.js" />
     <Content Include="js\jquery.blueimp-gallery.min.js" />
     <Content Include="js\managecontroller.js" />
@@ -187,6 +193,7 @@
     <Content Include="Mgmt\Manage.html" />
     <Content Include="Mgmt\NewGallery.html" />
     <Content Include="Mgmt\unauthorized.html" />
+    <None Include="old-navbar.txt" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7671.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7682.jpg" />
     <Content Include="SiteContent\Galleries\Friday_the_13th_2013\DSC_7684.jpg" />
@@ -328,6 +335,10 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\CommonLayout.cshtml" />
+    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\site.css.map">
