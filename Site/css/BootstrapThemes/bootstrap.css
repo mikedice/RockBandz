@@ -1,3 +1,17 @@
+﻿#masthead {
+  background: url('/img/in-the-frontrow-masthead.jpg');
+  height: 500px;
+  width: 1280px;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.my-body p {
+  font-family: 'Century Schoolbook', Century, Garamond, serif;
+  font-size: 19px;
+  font-style: normal;
+}
 .content-body {
   background-color: lightgray;
   font-family: "alexa-std", sans-serif;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using gal = InTheFrontRow.Models.Gallery;
+using gal = InTheFrontRow.Models.Views.Home;
 
 namespace InTheFrontRow.Models.Views.Home
 {

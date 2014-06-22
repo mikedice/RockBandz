@@ -126,6 +126,7 @@ namespace InTheFrontRow.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             metadata.Id = TrimName(id);
+            metadata.LastUpdateTime = DateTime.Now.ToString("Y");
             WriteMetadata(id, metadata);
 
             Trace.TraceInformation("PUT GalleryMetadata title: {0}{1}description: {1}",

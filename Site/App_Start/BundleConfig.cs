@@ -9,8 +9,8 @@ namespace InTheFrontRow
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                        "~/js/blueimp-gallery.min.js",
                         "~/js/jquery-1.10.2.min.js",
+                        "~/js/jquery.blueimp-gallery.min.js",
                         "~/js/bootstrap.js",
                         "~/js/angular.js",
                         "~/js/angular-file-upload.js",

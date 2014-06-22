@@ -126,6 +126,7 @@
     <Compile Include="Models\Gallery\CreateGalleryResponse.cs" />
     <Compile Include="Models\Gallery\Gallery.cs" />
     <Compile Include="Models\Gallery\GalleryMetadata.cs" />
+    <Compile Include="Models\Views\Home\Gallery.cs" />
     <Compile Include="Models\Views\Home\HomeModel.cs" />
     <Compile Include="Modules\BasicAuth.cs" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <Content Include="img\error.png" />
     <Content Include="img\error.svg" />
     <Content Include="img\facebook.png" />
+    <Content Include="img\in-the-frontrow-masthead.jpg" />
     <Content Include="img\loading.gif" />
     <Content Include="img\play-pause.png" />
     <Content Include="img\play-pause.svg" />
