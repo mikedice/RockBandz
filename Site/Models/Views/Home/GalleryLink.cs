@@ -9,5 +9,6 @@ namespace InTheFrontRow.Models.Views.Home
     {
         public string ImageUrl { get; set; }
         public string ThumbUrl { get; set; }
+        public string LightboxUrl { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace InTheFrontRow.Controllers
             };
             return View(viewModel);
         }
+
         public static IEnumerable<GalleryLink> MakeImageLinks(gal gallery)
         {
             var galleryLinks = new List<GalleryLink>();
@@ -44,7 +45,8 @@ namespace InTheFrontRow.Controllers
                 galleryLinks.Add(new GalleryLink()
                 {
                     ImageUrl = imageUrl,
-                    ThumbUrl = MakeThumbUrl(imageUrl)
+                    ThumbUrl = MakeThumbUrl(imageUrl),
+                    LightboxUrl = MakeLightboxUrl(imageUrl)
                 });
             }
             return galleryLinks;
@@ -52,13 +54,22 @@ namespace InTheFrontRow.Controllers
 
         public static string MakeThumbUrl(string imageUrl)
         {
+            return MakeWebImageUrl(imageUrl, "thumbnail");
+        }
+
+        public static string MakeLightboxUrl(string imageUrl) 
+        {
+            return MakeWebImageUrl(imageUrl, "lightbox");
+        }
+
+        public static string MakeWebImageUrl(string imageUrl, string format)
+        {
             int lastSlash = imageUrl.LastIndexOf("/");
 
             string root = imageUrl.Substring(0, lastSlash);
-            root += "/thumbnail";
-            root += imageUrl.Substring(lastSlash, imageUrl.Length-lastSlash);
+            root += "/" + format;
+            root += imageUrl.Substring(lastSlash, imageUrl.Length - lastSlash);
             return root;
-
         }
 	}
 }

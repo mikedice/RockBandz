@@ -55,7 +55,7 @@
 
                     @foreach (var image in gallery.ImageLinks)
                     {
-                        <a href='@image.ImageUrl' data-gallery='@gallery.GalleryWidgetIdSelector'>
+                        <a href='@image.LightboxUrl' data-gallery='@gallery.GalleryWidgetIdSelector'>
                             <img class="img_thumbnail" src='@image.ThumbUrl' alt='gallery image'>
                         </a>
                     }

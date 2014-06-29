@@ -16,9 +16,14 @@ using ImageResizer;
 
 namespace InTheFrontRow.Controllers
 {
+    /// <summary>
+    /// This class uses ImageResizer library to do image resizing. See docs at http://imageresizing.net/
+    /// </summary>
     public class GalleryController : ApiController
     {
         private const string MetadataFileName = "gallery.metadata";
+        private static ResizeSettings thumbResizeSettings = new ResizeSettings("width=100;height=100;format=jpg;mode=carve");
+        private static ResizeSettings lightboxResizeSettings = new ResizeSettings("maxwidth=1024;format=jpg;");
         /// <summary>
         /// return a list of all Galleries
         /// GET api/gallery
@@ -101,26 +106,12 @@ namespace InTheFrontRow.Controllers
                 var fileName = TrimName(file.Headers.ContentDisposition.FileName);
 
                 var filePath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), fileName);
-                var thumbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(file.LocalFileName), "thumbnail"), fileName);
+
                 if (!File.Exists(filePath))
                 {
                     File.Move(file.LocalFileName, filePath);
-                    //TODO: Create thumbnails on the server. ALso make sure 
-                    //      thumbnails are deleted if we delete the image.
-
-
-                    try
-                    {
-                        var job = new ImageJob(filePath,
-                            thumbPath, new ImageResizer.ResizeSettings("width=100;height=100;format=jpg;mode=carve"));
-                        job.CreateParentDirectory = true;
-                        job.Build();
-                    }
-                    catch (Exception e)
-                    {
-                        Trace.TraceInformation(e.ToString());
-                    }
-
+                    MakeThumbnail(filePath, fileName);
+                    MakeLightbox(filePath, fileName);
                 }
                 Trace.TraceInformation("Created file: {0}", filePath);
             }
@@ -299,6 +290,36 @@ namespace InTheFrontRow.Controllers
             var result = name.Trim();
             result = name.Replace("\"", string.Empty);
             return result;
+        }
+
+        private static void MakeThumbnail(string filePath, string fileName)
+        {
+            var thumbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(filePath), "thumbnail"), fileName);
+            try
+            {
+                var job = new ImageJob(filePath, thumbPath, thumbResizeSettings);
+                job.CreateParentDirectory = true;
+                job.Build();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceInformation(e.ToString());
+            }
+        }
+
+        private static void MakeLightbox(string filePath, string fileName)
+        {
+            var thumbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(filePath), "lightbox"), fileName);
+            try
+            {
+                var job = new ImageJob(filePath, thumbPath, lightboxResizeSettings);
+                job.CreateParentDirectory = true;
+                job.Build();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceInformation(e.ToString());
+            }
         }
     }
 }
