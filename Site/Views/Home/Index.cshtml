@@ -5,9 +5,7 @@
 }
 <script type="text/javascript" src="//use.typekit.net/ras8uai.js"></script>
 <script type="text/javascript">try { Typekit.load(); } catch (e) { }</script>
-<header id="masthead" class="site-header" role="banner">
-
-</header>
+<header id="masthead" class="site-header" role="banner"></header>
 
 <div class="container my-body">
     @foreach (var gallery in Model.Galleries)
@@ -31,14 +29,35 @@
                         <ol class="indicator"></ol>
                     </div>
                 </div>
+                <div class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body next"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left prev">
+                                    <i class="glyphicon glyphicon-chevron-left"></i>
+                                    Previous
+                                </button>
+                                <button type="button" class="btn btn-primary next">
+                                    Next
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="@gallery.GalleryWidgetId">
 
-                    @foreach (var image in gallery.GalleryData.ImageUrls)
+                    @foreach (var image in gallery.ImageLinks)
                     {
-                    <a href='@image'>
-                        <img class="img_thumbnail" src='@image' alt='gallery image' data-gallery='@gallery.GalleryWidgetIdSelector'>
-                    </a>
+                        <a href='@image.ImageUrl' data-gallery='@gallery.GalleryWidgetIdSelector'>
+                            <img class="img_thumbnail" src='@image.ThumbUrl' alt='gallery image'>
+                        </a>
                     }
                 </div>
             </div>

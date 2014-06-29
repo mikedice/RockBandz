@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImageResizer">
+      <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -127,6 +130,7 @@
     <Compile Include="Models\Gallery\Gallery.cs" />
     <Compile Include="Models\Gallery\GalleryMetadata.cs" />
     <Compile Include="Models\Views\Home\Gallery.cs" />
+    <Compile Include="Models\Views\Home\GalleryLink.cs" />
     <Compile Include="Models\Views\Home\HomeModel.cs" />
     <Compile Include="Modules\BasicAuth.cs" />
   </ItemGroup>
@@ -135,6 +139,7 @@
     <Content Include="css\blueimp-gallery-video.css" />
     <Content Include="css\blueimp-gallery.css" />
     <Content Include="css\blueimp-gallery.min.css" />
+    <Content Include="css\bootstrap-image-gallery.css" />
     <Content Include="css\BootstrapManageThemes\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
@@ -179,6 +184,7 @@
     <Content Include="js\blueimp-gallery.js" />
     <Content Include="js\blueimp-gallery.min.js" />
     <Content Include="js\blueimp-helper.js" />
+    <Content Include="js\bootstrap-image-gallery.htm" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\demo.js" />

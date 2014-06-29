@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Http;
 using InTheFrontRow.Models.Gallery;
 using Newtonsoft.Json;
+using ImageResizer;
 
 namespace InTheFrontRow.Controllers
 {
@@ -100,9 +101,26 @@ namespace InTheFrontRow.Controllers
                 var fileName = TrimName(file.Headers.ContentDisposition.FileName);
 
                 var filePath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), fileName);
+                var thumbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(file.LocalFileName), "thumbnail"), fileName);
                 if (!File.Exists(filePath))
                 {
                     File.Move(file.LocalFileName, filePath);
+                    //TODO: Create thumbnails on the server. ALso make sure 
+                    //      thumbnails are deleted if we delete the image.
+
+
+                    try
+                    {
+                        var job = new ImageJob(filePath,
+                            thumbPath, new ImageResizer.ResizeSettings("width=100;height=100;format=jpg;mode=carve"));
+                        job.CreateParentDirectory = true;
+                        job.Build();
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.TraceInformation(e.ToString());
+                    }
+
                 }
                 Trace.TraceInformation("Created file: {0}", filePath);
             }

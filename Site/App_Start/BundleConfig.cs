@@ -11,6 +11,7 @@ namespace InTheFrontRow
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/js/jquery-1.10.2.min.js",
                         "~/js/jquery.blueimp-gallery.min.js",
+                        "~/js/bootstrap-image-gallery.js",
                         "~/js/bootstrap.js",
                         "~/js/angular.js",
                         "~/js/angular-file-upload.js",
@@ -23,7 +24,8 @@ namespace InTheFrontRow
             bundles.Add(new StyleBundle("~/Content/styles").Include(
                       "~/css/blueimp-gallery.min.css",
                       "~/css/site.css",
-                      "~/css/BootstrapThemes/bootstrap.css"));
+                      "~/css/BootstrapThemes/bootstrap.css",
+                      "~/css/bootstrap-image-gallery.css"));
         }
     }
 }

@@ -11,5 +11,6 @@ namespace InTheFrontRow.Models.Views.Home
         public gal.Gallery GalleryData { get; set; }
         public string GalleryWidgetId { get; set; }
         public string GalleryWidgetIdSelector { get; set; }
+        public IEnumerable<GalleryLink> ImageLinks { get; set; }
     }
 }

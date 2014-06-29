@@ -26,7 +26,8 @@ namespace InTheFrontRow.Controllers
                 {
                     GalleryData = arr[i],
                     GalleryWidgetId = string.Format("blueimp-gallery-{0}", i),
-                    GalleryWidgetIdSelector = string.Format("#blueimp-gallery-{0}", i)
+                    GalleryWidgetIdSelector = string.Format("#blueimp-gallery-{0}", i),
+                    ImageLinks = MakeImageLinks(arr[i])
                 });
             }
             var viewModel = new HomeModel()
@@ -34,6 +35,30 @@ namespace InTheFrontRow.Controllers
                 Galleries = viewGalleries
             };
             return View(viewModel);
+        }
+        public static IEnumerable<GalleryLink> MakeImageLinks(gal gallery)
+        {
+            var galleryLinks = new List<GalleryLink>();
+            foreach(var imageUrl in gallery.ImageUrls)
+            {
+                galleryLinks.Add(new GalleryLink()
+                {
+                    ImageUrl = imageUrl,
+                    ThumbUrl = MakeThumbUrl(imageUrl)
+                });
+            }
+            return galleryLinks;
+        }
+
+        public static string MakeThumbUrl(string imageUrl)
+        {
+            int lastSlash = imageUrl.LastIndexOf("/");
+
+            string root = imageUrl.Substring(0, lastSlash);
+            root += "/thumbnail";
+            root += imageUrl.Substring(lastSlash, imageUrl.Length-lastSlash);
+            return root;
+
         }
 	}
 }
