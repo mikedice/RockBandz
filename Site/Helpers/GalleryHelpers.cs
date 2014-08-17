@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -70,7 +71,49 @@ namespace InTheFrontRow.Helpers
                 results.Add(gallery);
             }
 
-            return results;
+            return OrderGalleries(results);
+        }
+
+        class OrderedGallery
+        {
+            public DateTime Date { get; set; }
+            public Gallery Gallery { get; set; }
+        }
+
+        public static IEnumerable<Gallery> OrderGalleries(IEnumerable<Gallery> galleries)
+        {
+            // A full datetime pattern was added to GalleryMetadata after release so
+            // use that property if it is available, otherwise use the shorter lastupdatetime
+            // pattern if that is available, otherwise use DateTime.MinValue
+            List<OrderedGallery> orderedList = new List<OrderedGallery>();
+            foreach (var gallery in galleries)
+            {
+                OrderedGallery og = new OrderedGallery();
+                og.Gallery = gallery;
+
+                if (!string.IsNullOrEmpty(gallery.Metadata.LastUpdateTimeFull))
+                {
+                    og.Date = DateTime.Parse(gallery.Metadata.LastUpdateTimeFull);
+                }
+                else if (!string.IsNullOrEmpty(gallery.Metadata.LastUpdateTime))
+                {
+                    og.Date = DateTime.Parse(gallery.Metadata.LastUpdateTime);
+                }
+                else
+                {
+                    og.Date = DateTime.MinValue;
+                }
+                orderedList.Add(og);
+            }
+
+            var sorted = orderedList.OrderByDescending(m => m.Date);
+            List<Gallery> result = new List<Gallery>();
+            foreach (var gallery in sorted)
+            {
+                result.Add(gallery.Gallery);
+            }
+
+            return result;
         }
     }
 }

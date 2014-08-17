@@ -160,6 +160,8 @@
     <Content Include="img\error.svg" />
     <Content Include="img\facebook.png" />
     <Content Include="img\in-the-frontrow-masthead.jpg" />
+    <Content Include="img\inthefrontrowcover.jpg" />
+    <Content Include="img\inthefrontrowcoverSMALL.jpg" />
     <Content Include="img\loading.gif" />
     <Content Include="img\play-pause.png" />
     <Content Include="img\play-pause.svg" />

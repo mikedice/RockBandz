@@ -11,5 +11,6 @@ namespace InTheFrontRow.Models.Gallery
         public string Description { get; set; }
         public string Id { get; set; }
         public string LastUpdateTime { get; set; }
+        public string LastUpdateTimeFull { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -134,8 +135,10 @@ namespace InTheFrontRow.Controllers
                 Trace.TraceInformation("PUT GalleryMetadata did not save metadata. No metadata was received");
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
+            DateTime lastUpdateTime = DateTime.Now;
             metadata.Id = TrimName(id);
-            metadata.LastUpdateTime = DateTime.Now.ToString("Y");
+            metadata.LastUpdateTime = lastUpdateTime.ToString("Y");
+            metadata.LastUpdateTimeFull = lastUpdateTime.ToString("O");
             WriteMetadata(id, metadata);
 
             Trace.TraceInformation("PUT GalleryMetadata title: {0}{1}description: {1}",
@@ -218,7 +221,7 @@ namespace InTheFrontRow.Controllers
                 results.Add(gallery);
             }
 
-            return results;
+            return InTheFrontRow.Helpers.GalleryHelpers.OrderGalleries(results);
         }
 
         private static IEnumerable<string> GetAllGalleryFolders()
